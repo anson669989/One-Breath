@@ -18,9 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:gravity="center"
-        android:textColor="#B8CFC6"
+        android:textColor="#8C9AB5"
         android:textSize="15sp" />
 
+    <!-- 只剩會縮放的圓圈，不顯示文字 -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,30 +33,6 @@
             android:layout_height="220dp"
             android:layout_gravity="center"
             android:background="@drawable/breath_circle" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/breathText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="吸氣"
-                android:textColor="#FFFFFF"
-                android:textSize="26sp" />
-
-            <TextView
-                android:id="@+id/timerText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="#8FB5A7"
-                android:textSize="16sp" />
-        </LinearLayout>
     </FrameLayout>
 
     <TextView
@@ -64,25 +41,28 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#E8EEF8"
         android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/continueBtn"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:backgroundTint="#2A3A34"
-        android:textColor="#B8CFC6"
-        android:textSize="16sp"
-        android:visibility="invisible" />
 
     <Button
         android:id="@+id/cancelBtn"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#5FA88F"
+        android:backgroundTint="#3D7BFF"
         android:text="算了，不開了"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
+
+    <!-- 純文字，沒有方框，直接放在背景上 -->
+    <Button
+        android:id="@+id/continueBtn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        android:textColor="#6F7FA0"
+        android:textSize="14sp"
+        android:visibility="invisible" />
 </LinearLayout>

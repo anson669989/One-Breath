@@ -1,7 +1,5 @@
 package com.onebreath.app;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +16,10 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-/** 深呼吸畫面：倒數完可以選「繼續」或「算了」，永遠不會把你鎖在外面。 */
+/**
+ * 深呼吸畫面：只有一個緩慢縮放的圓圈。
+ * 等待時間到了，「算了」下方才會出現「我確定」的文字按鈕，永遠不會把你鎖在外面。
+ */
 public class PauseActivity extends Activity {
 
     public static final String EXTRA_PKG = "pkg";
@@ -37,28 +38,14 @@ public class PauseActivity extends Activity {
 
     private Prefs prefs;
     private String pkg;
-    private int remaining;
-    private boolean inhale = true;
     private ValueAnimator breath;
 
     private ImageView appIcon;
-    private TextView countText, breathText, timerText, promptText;
+    private TextView countText, promptText;
     private Button continueBtn, cancelBtn;
     private View circle;
 
-    private final Runnable tick = new Runnable() {
-        @Override
-        public void run() {
-            if (remaining <= 0) {
-                timerText.setText("");
-                continueBtn.setVisibility(View.VISIBLE);
-                return;
-            }
-            timerText.setText(remaining + " 秒");
-            remaining--;
-            handler.postDelayed(this, 1000);
-        }
-    };
+    private final Runnable reveal = () -> continueBtn.setVisibility(View.VISIBLE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +55,6 @@ public class PauseActivity extends Activity {
 
         appIcon = findViewById(R.id.appIcon);
         countText = findViewById(R.id.countText);
-        breathText = findViewById(R.id.breathText);
-        timerText = findViewById(R.id.timerText);
         promptText = findViewById(R.id.promptText);
         continueBtn = findViewById(R.id.continueBtn);
         cancelBtn = findViewById(R.id.cancelBtn);
@@ -115,15 +100,13 @@ public class PauseActivity extends Activity {
         continueBtn.setVisibility(View.INVISIBLE);
 
         startBreathing();
-        handler.removeCallbacks(tick);
-        remaining = prefs.getDelaySeconds();
-        handler.post(tick);
+        // 等待時間照樣計算，只是不顯示秒數
+        handler.removeCallbacks(reveal);
+        handler.postDelayed(reveal, prefs.getDelaySeconds() * 1000L);
     }
 
     private void startBreathing() {
         if (breath != null) breath.cancel();
-        inhale = true;
-        breathText.setText("吸氣");
         breath = ValueAnimator.ofFloat(0.55f, 1f);
         breath.setDuration(4000);
         breath.setRepeatMode(ValueAnimator.REVERSE);
@@ -133,13 +116,6 @@ public class PauseActivity extends Activity {
             float s = (float) a.getAnimatedValue();
             circle.setScaleX(s);
             circle.setScaleY(s);
-        });
-        breath.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                inhale = !inhale;
-                breathText.setText(inhale ? "吸氣" : "吐氣");
-            }
         });
         breath.start();
     }
@@ -179,7 +155,7 @@ public class PauseActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        handler.removeCallbacks(tick);
+        handler.removeCallbacks(reveal);
         if (breath != null) breath.cancel();
         super.onDestroy();
     }

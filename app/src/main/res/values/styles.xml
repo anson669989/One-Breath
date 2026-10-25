@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="accent">#3F7F6B</color>
-    <color name="pause_bg">#14201C</color>
-    <color name="breath">#5FA88F</color>
+    <!-- 藍黑色調 -->
+    <color name="bg_main">#0A1020</color>
+    <color name="card">#141E33</color>
+    <color name="card_line">#22304D</color>
+    <color name="text_primary">#E8EEF8</color>
+    <color name="text_secondary">#8C9AB5</color>
+    <color name="accent">#3D7BFF</color>
+    <color name="accent_soft">#1E3A70</color>
+    <color name="pause_bg">#060B17</color>
+    <color name="breath">#5B8CFF</color>
 
-    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+    <style name="AppTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg_main</item>
+        <item name="android:statusBarColor">@color/bg_main</item>
+        <item name="android:navigationBarColor">@color/bg_main</item>
         <item name="android:colorAccent">@color/accent</item>
         <item name="android:colorPrimary">@color/accent</item>
-        <item name="android:colorPrimaryDark">@color/accent</item>
+        <item name="android:colorPrimaryDark">@color/bg_main</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 
     <style name="PauseTheme" parent="@android:style/Theme.Material.NoActionBar">
