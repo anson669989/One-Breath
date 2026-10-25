@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="28dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="喘口氣"
+        android:textColor="#1E2B26"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="打開分心 App 前先深呼吸幾秒，想開還是開得了。"
+        android:textColor="#5B6B65"
+        android:textSize="14sp" />
+
+    <!-- 權限狀態 -->
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="14dp"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/accessBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="① 開啟無障礙權限" />
+
+    <TextView
+        android:id="@+id/samsungHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="開關是灰色按不了？先按下面按鈕 → 右上角 ⋮ →「允許受限制的設定」，再回來按 ①。"
+        android:textColor="#8A6D3B"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/appInfoBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="開啟 App 資訊頁" />
+
+    <Switch
+        android:id="@+id/enableSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="啟用提醒"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/delayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="15sp" />
+
+    <SeekBar
+        android:id="@+id/delaySeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="30" />
+
+    <TextView
+        android:id="@+id/graceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="15sp" />
+
+    <SeekBar
+        android:id="@+id/graceSeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="29" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="② 勾選要提醒的 App"
+        android:textColor="#1E2B26"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+</LinearLayout>

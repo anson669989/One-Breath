@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#3F7F6B</color>
+    <color name="pause_bg">#14201C</color>
+    <color name="breath">#5FA88F</color>
+
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:colorPrimary">@color/accent</item>
+        <item name="android:colorPrimaryDark">@color/accent</item>
+    </style>
+
+    <style name="PauseTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/pause_bg</item>
+        <item name="android:statusBarColor">@color/pause_bg</item>
+        <item name="android:navigationBarColor">@color/pause_bg</item>
+        <item name="android:colorAccent">@color/breath</item>
+    </style>
+</resources>
