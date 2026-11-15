@@ -3,6 +3,8 @@ package com.onebreath.app.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.onebreath.app.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +26,6 @@ public final class GroupStore {
 
     private static final String KEY_GROUPS = "groups_v2";
     private static final String KEY_LEGACY_APPS = "apps";
-    private static final String LEGACY_GROUP_NAME = "我的 App";
 
     private static GroupStore instance;
 
@@ -49,6 +50,7 @@ public final class GroupStore {
         }
     }
 
+    private final Context app;
     private final SharedPreferences sp;
     private final Prefs prefs;
     private final List<Group> groups = new ArrayList<>();
@@ -61,6 +63,7 @@ public final class GroupStore {
     private int watchedCount;
 
     private GroupStore(Context app) {
+        this.app = app;
         prefs = new Prefs(app);
         sp = prefs.raw();
         load();
@@ -278,10 +281,11 @@ public final class GroupStore {
             }
         }
 
-        // 舊版（v1）只有一個 App 清單：搬進「我的 App」群組
+        // 舊版（v1）只有一個 App 清單：搬進「我的 App」群組。
+        // 名稱用搬移當下的介面語言，之後就是使用者自己的資料，不會再跟著語言改。
         Set<String> legacy = sp.getStringSet(KEY_LEGACY_APPS, null);
         if (groups.isEmpty() && legacy != null && !legacy.isEmpty()) {
-            Group g = newGroup(LEGACY_GROUP_NAME);
+            Group g = newGroup(AppLocale.wrap(app).getString(R.string.legacy_group_name));
             for (String pkg : new java.util.TreeSet<>(legacy)) {
                 if (pkg != null && !pkg.isEmpty()) g.apps.add(pkg);
             }

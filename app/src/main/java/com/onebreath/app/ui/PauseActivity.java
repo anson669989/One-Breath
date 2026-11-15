@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.onebreath.app.R;
+import com.onebreath.app.data.AppLocale;
 import com.onebreath.app.data.GroupStore;
 import com.onebreath.app.data.Prefs;
 import com.onebreath.app.data.Rule;
@@ -50,32 +52,6 @@ public class PauseActivity extends Activity {
 
     private static final String WEB_PREFIX = "web:";
     private static final long TICK_MS = 200L;
-
-    private static final String[] PROMPTS = {
-            "你打開它是為了什麼？",
-            "這件事現在一定要做嗎？",
-            "滑完之後，你會覺得比較好嗎？",
-            "先喝口水，再決定。",
-            "真的需要，還是只是習慣？",
-            "等一下想做的事，做了嗎？",
-            "此刻的你，其實想要什麼？",
-            "是無聊，還是累了？",
-            "五分鐘後的你，會感謝這個決定嗎？",
-            "先看看窗外，再決定。",
-            "有沒有一件更想做的小事？",
-            "你在找的東西，在這裡嗎？"
-    };
-
-    private static final String[] REMIND_PROMPTS = {
-            "還要繼續嗎？",
-            "原本想做的事，做完了嗎？",
-            "現在停下來，剛剛好。",
-            "眼睛和肩膀，還好嗎？",
-            "這段時間，花得值得嗎？",
-            "起來走走，好不好？",
-            "你還記得打開它的原因嗎？",
-            "再滑下去，會更開心嗎？"
-    };
 
     private static int lastPrompt = -1;
     private static int lastRemindPrompt = -1;
@@ -127,6 +103,15 @@ public class PauseActivity extends Activity {
             handler.postDelayed(this, Math.min(TICK_MS, Math.max(16L, deadline - now)));
         }
     };
+
+    /**
+     * 由無障礙服務啟動，主畫面不一定在跑：每次建立都重新讀語言設定，
+     * 所以在設定頁改了語言，下一次跳出來就是新語言，不必重開服務。
+     */
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(AppLocale.wrap(base));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,23 +188,24 @@ public class PauseActivity extends Activity {
 
         // ---- 文字
         if (remind) {
+            Resources res = getResources();
             eyebrowText.setText(usedMinutes > 0
-                    ? "你已經用了 " + usedMinutes + " 分鐘"
-                    : "你已經用了一段時間");
+                    ? res.getQuantityString(R.plurals.pause_eyebrow_used, usedMinutes, usedMinutes)
+                    : getString(R.string.pause_eyebrow_used_unknown));
             questionText.setText(pickRemindPrompt());
             int today = prefs.getToday(key);
             statText.setText(today > 0
-                    ? "今天打開「" + label + "」" + today + " 次"
-                    : "停一下，也是一種照顧自己");
-            primaryBtn.setText("夠了，先離開");
-            secondaryBtn.setText("再用一下");
+                    ? res.getQuantityString(R.plurals.pause_stat_remind, today, label, today)
+                    : getString(R.string.pause_stat_remind_none));
+            primaryBtn.setText(R.string.pause_remind_primary);
+            secondaryBtn.setText(R.string.pause_remind_secondary);
         } else {
             int count = prefs.incrementToday(key);
-            eyebrowText.setText("先停一下，深呼吸");
+            eyebrowText.setText(R.string.pause_eyebrow_open);
             questionText.setText(pickOpenPrompt());
-            statText.setText("今天第 " + count + " 次打開「" + label + "」");
-            primaryBtn.setText("算了，不開了");
-            secondaryBtn.setText("我確定，繼續開「" + label + "」");
+            statText.setText(getResources().getQuantityString(R.plurals.pause_stat_open, count, count, label));
+            primaryBtn.setText(R.string.pause_open_primary);
+            secondaryBtn.setText(getString(R.string.pause_open_secondary, label));
         }
 
         // ---- 等待時間
@@ -252,7 +238,7 @@ public class PauseActivity extends Activity {
         Drawable d = null;
         if (isWeb) {
             label = key.substring(WEB_PREFIX.length());
-            if (label.isEmpty()) label = "這個網站";
+            if (label.isEmpty()) label = getString(R.string.pause_this_site);
             if (hostPkg != null) {
                 try {
                     d = pm.getApplicationIcon(hostPkg);
@@ -296,18 +282,22 @@ public class PauseActivity extends Activity {
         return Math.max(0, Math.min(60, s));
     }
 
+    // 反思問句放在 res/values*/strings.xml 的 pause_prompts / pause_remind_prompts，跟著 App 語言
+
     private String pickOpenPrompt() {
-        int i = random.nextInt(PROMPTS.length);
-        if (i == lastPrompt) i = (i + 1) % PROMPTS.length;
+        String[] prompts = getResources().getStringArray(R.array.pause_prompts);
+        int i = random.nextInt(prompts.length);
+        if (i == lastPrompt) i = (i + 1) % prompts.length;
         lastPrompt = i;
-        return PROMPTS[i];
+        return prompts[i];
     }
 
     private String pickRemindPrompt() {
-        int i = random.nextInt(REMIND_PROMPTS.length);
-        if (i == lastRemindPrompt) i = (i + 1) % REMIND_PROMPTS.length;
+        String[] prompts = getResources().getStringArray(R.array.pause_remind_prompts);
+        int i = random.nextInt(prompts.length);
+        if (i == lastRemindPrompt) i = (i + 1) % prompts.length;
         lastRemindPrompt = i;
-        return REMIND_PROMPTS[i];
+        return prompts[i];
     }
 
     // ---------------------------------------------------------------- 動畫

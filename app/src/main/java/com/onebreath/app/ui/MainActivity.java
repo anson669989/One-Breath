@@ -1,6 +1,7 @@
 package com.onebreath.app.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.onebreath.app.R;
+import com.onebreath.app.data.AppLocale;
 
 /** 主畫面：下方導覽列切換「首頁／群組／設定」三頁，每頁由自己的小控制器負責。 */
 public class MainActivity extends Activity {
@@ -27,6 +29,12 @@ public class MainActivity extends Activity {
     private SettingsPage settingsPage;
 
     private int currentTab = TAB_HOME;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        // App 內的語言設定（跟隨系統／繁體中文／English）
+        super.attachBaseContext(AppLocale.wrap(base));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

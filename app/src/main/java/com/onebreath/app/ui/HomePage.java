@@ -1,18 +1,18 @@
 package com.onebreath.app.ui;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.onebreath.app.R;
 import com.onebreath.app.data.GroupStore;
 import com.onebreath.app.data.Prefs;
 
-/** 首頁：權限狀態、總開關、今天的次數、群組摘要。 */
+/** 首頁：權限狀態、今天的次數、群組摘要。（「啟用提醒」總開關在設定頁） */
 final class HomePage {
 
     private final MainActivity act;
@@ -21,8 +21,7 @@ final class HomePage {
     private final View statusCard;
     private final TextView statusTitle, statusBody, restrictHint;
     private final Button accessBtn, appInfoBtn;
-    private final Switch masterSwitch;
-    private final TextView todayTotal, todayResisted;
+    private final TextView todayTotal, todayResisted, todayTotalLabel, todayResistedLabel;
     private final View summaryCard, emptyCard;
     private final TextView summaryText, summaryHint;
 
@@ -36,9 +35,10 @@ final class HomePage {
         restrictHint = root.findViewById(R.id.restrictHint);
         accessBtn = root.findViewById(R.id.accessBtn);
         appInfoBtn = root.findViewById(R.id.appInfoBtn);
-        masterSwitch = root.findViewById(R.id.masterSwitch);
         todayTotal = root.findViewById(R.id.todayTotal);
         todayResisted = root.findViewById(R.id.todayResisted);
+        todayTotalLabel = root.findViewById(R.id.todayTotalLabel);
+        todayResistedLabel = root.findViewById(R.id.todayResistedLabel);
         summaryCard = root.findViewById(R.id.summaryCard);
         summaryText = root.findViewById(R.id.summaryText);
         summaryHint = root.findViewById(R.id.summaryHint);
@@ -47,13 +47,6 @@ final class HomePage {
         accessBtn.setOnClickListener(v -> safeStart(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
         appInfoBtn.setOnClickListener(v -> safeStart(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                 Uri.parse("package:" + act.getPackageName()))));
-
-        masterSwitch.setChecked(prefs.isEnabled());
-        masterSwitch.setOnCheckedChangeListener((b, on) -> {
-            prefs.setEnabled(on);
-            updateMasterHint();
-        });
-        UiKit.bindToggleRow(root.findViewById(R.id.masterRow), masterSwitch);
 
         summaryCard.setOnClickListener(v -> act.selectTab(MainActivity.TAB_GROUPS));
         root.findViewById(R.id.emptyCreateBtn).setOnClickListener(v -> act.startCreateGroup());
@@ -64,30 +57,33 @@ final class HomePage {
         boolean on = UiKit.isServiceEnabled(act);
         if (on) {
             statusCard.setBackgroundResource(R.drawable.bg_status_ok);
-            statusTitle.setText("✓ 運作中");
+            statusTitle.setText(R.string.status_ok_title);
             statusTitle.setTextColor(act.getColor(R.color.ok_text));
-            statusBody.setText("無障礙權限已開啟，打開群組裡的 App 前會先喘口氣。");
+            statusBody.setText(R.string.status_ok_body);
             accessBtn.setVisibility(View.GONE);
             restrictHint.setVisibility(View.GONE);
             appInfoBtn.setVisibility(View.GONE);
         } else {
             statusCard.setBackgroundResource(R.drawable.bg_status_off);
-            statusTitle.setText("✗ 還沒開啟無障礙權限");
+            statusTitle.setText(R.string.status_off_title);
             statusTitle.setTextColor(act.getColor(R.color.warn_text));
-            statusBody.setText("沒有這個權限，喘口氣就不知道你打開了哪個 App，提醒不會出現。"
-                    + "按下面按鈕 → 已安裝的應用程式 → 喘口氣 → 開啟。");
+            statusBody.setText(R.string.status_off_body);
             accessBtn.setVisibility(View.VISIBLE);
             restrictHint.setVisibility(View.VISIBLE);
             appInfoBtn.setVisibility(View.VISIBLE);
         }
 
-        // 總開關（可能在別處被改過）
-        if (masterSwitch.isChecked() != prefs.isEnabled()) masterSwitch.setChecked(prefs.isEnabled());
+        // 總開關狀態（在設定頁切換，回到首頁時重讀）
         updateMasterHint();
 
         // 今天
-        todayTotal.setText(String.valueOf(prefs.getTodayTotal()));
-        todayResisted.setText(String.valueOf(prefs.getTodayResisted()));
+        int total = prefs.getTodayTotal();
+        int resisted = prefs.getTodayResisted();
+        todayTotal.setText(String.valueOf(total));
+        todayResisted.setText(String.valueOf(resisted));
+        Resources res = act.getResources();
+        todayTotalLabel.setText(res.getQuantityString(R.plurals.home_breaths, total));
+        todayResistedLabel.setText(res.getQuantityString(R.plurals.home_resisted, resisted));
 
         // 群組摘要
         GroupStore store = GroupStore.get(act);
@@ -99,14 +95,16 @@ final class HomePage {
             summaryCard.setVisibility(View.VISIBLE);
             emptyCard.setVisibility(View.GONE);
             int apps = store.watchedAppCount();
-            summaryText.setText(groups + " 個群組 · " + apps + " 個 App 提醒中");
+            summaryText.setText(act.getString(R.string.two_parts,
+                    res.getQuantityString(R.plurals.home_summary_groups, groups, groups),
+                    res.getQuantityString(R.plurals.home_summary_apps, apps, apps)));
         }
     }
 
     private void updateMasterHint() {
         summaryHint.setText(prefs.isEnabled()
-                ? "點這裡管理群組與 App"
-                : "提醒已全部暫停 · 點這裡管理群組與 App");
+                ? R.string.home_summary_hint
+                : R.string.home_summary_hint_paused);
     }
 
     private void safeStart(Intent i) {

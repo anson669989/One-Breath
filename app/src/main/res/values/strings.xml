@@ -1,5 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  English (default / fallback). Traditional Chinese lives in values-zh/strings.xml.
+  Both files must have exactly the same keys. Typographic quotes (“ ” ’) are used on purpose,
+  so no Android escaping is needed for apostrophes or double quotes.
+-->
 <resources>
-    <string name="app_name">喘口氣</string>
-    <string name="service_description">偵測現在最前面的是哪個 App；若是你選定的分心 App，就先跳出深呼吸畫面，使用一段時間後也會再提醒你一次。在瀏覽器裡，只會讀取網址列上的網址，用來認出你選定的網站。畫面上的其他內容一概不讀，所有資料都只存在這支手機上，不會上傳任何東西。</string>
+    <string name="app_name">One Breath</string>
+    <string name="service_description">Detects which app is in the foreground. If it is a distracting app you chose, a deep-breathing screen appears first, and you get another reminder after using it for a while. In browsers, only the URL in the address bar is read, to recognise the websites you chose. Nothing else on screen is ever read, and all data stays on this phone — nothing is uploaded.</string>
+
+    <!-- Shared -->
+    <string name="title_home">Home</string>
+    <string name="title_groups">Groups</string>
+    <string name="title_settings">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="remove">Remove</string>
+    <string name="back">Back</string>
+    <string name="two_parts">%1$s · %2$s</string>
+    <string name="create_first_group">+ Create your first group</string>
+    <string name="new_group_title">New group</string>
+    <string name="unnamed">(Untitled)</string>
+    <string name="unnamed_group">Untitled group</string>
+    <string name="other_group">another group</string>
+    <string name="legacy_group_name">My apps</string>
+    <string name="feature_pause">Breathe before opening</string>
+    <string name="feature_remind">In-use reminder</string>
+    <string name="delay_title">Wait before opening</string>
+    <string name="remind_interval_title">Reminder interval</string>
+    <string name="remind_delay_title">Wait on the reminder screen</string>
+
+    <!-- Values next to sliders -->
+    <string name="value_no_wait">No wait</string>
+    <plurals name="value_seconds">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+    <plurals name="value_minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="value_every_minutes">
+        <item quantity="one">Every %d minute</item>
+        <item quantity="other">Every %d minutes</item>
+    </plurals>
+
+    <!-- Home -->
+    <string name="home_tagline">Take a few deep breaths before opening a distracting app. You can still open it if you want to.</string>
+    <string name="home_access_btn">① Turn on accessibility (look for “One Breath”)</string>
+    <string name="home_restrict_hint">Switch greyed out? (Common on Android 13+ and Samsung phones.) Tap the button below → ⋮ in the top-right corner → “Allow restricted settings”, then come back and tap ①.</string>
+    <string name="home_app_info_btn">Open App info</string>
+    <string name="home_today">Today</string>
+    <plurals name="home_breaths">
+        <item quantity="one">breath taken</item>
+        <item quantity="other">breaths taken</item>
+    </plurals>
+    <plurals name="home_resisted">
+        <item quantity="one">time you chose not to open</item>
+        <item quantity="other">times you chose not to open</item>
+    </plurals>
+    <string name="home_watching">Apps with reminders</string>
+    <string name="home_summary_hint">Tap to manage groups and apps</string>
+    <string name="home_summary_hint_paused">All reminders paused · Tap to manage groups and apps</string>
+    <plurals name="home_summary_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+    <plurals name="home_summary_apps">
+        <item quantity="one">%d app with reminders</item>
+        <item quantity="other">%d apps with reminders</item>
+    </plurals>
+    <string name="home_empty_title">No apps chosen yet</string>
+    <string name="home_empty_body">Start by creating a group, such as “Social”, and add Instagram and Threads to it. From then on, you’ll take a breath before opening them.</string>
+    <string name="status_ok_title">✓ Running</string>
+    <string name="status_ok_body">Accessibility is on. You’ll take a breath before opening the apps in your groups.</string>
+    <string name="status_off_title">✗ Accessibility isn’t on yet</string>
+    <string name="status_off_body">Without this permission, One Breath can’t tell which app you opened, so no reminders will appear. Tap the button below → Installed apps → One Breath → turn it on.</string>
+
+    <!-- Groups page -->
+    <string name="groups_add">+ New group</string>
+    <string name="groups_tagline">Sort distracting apps into groups, and choose which reminders each group gets.</string>
+    <string name="groups_empty_title">What’s a group?</string>
+    <string name="groups_empty_body1">A group is a set of apps you want reminders for — for example, “Social” with Instagram and Threads, or “Video” with YouTube and Netflix.</string>
+    <string name="groups_empty_body2">Each group decides for itself: whether to take a breath before opening, whether to check in after a while, and whether to remind you when you open their websites in a browser.</string>
+    <string name="groups_custom_name">Custom name…</string>
+    <string-array name="group_presets">
+        <item>Social</item>
+        <item>Video</item>
+        <item>Games</item>
+        <item>Shopping</item>
+        <item>News</item>
+    </string-array>
+    <plurals name="group_meta_apps">
+        <item quantity="one">%d app</item>
+        <item quantity="other">%d apps</item>
+    </plurals>
+    <plurals name="group_meta_sites">
+        <item quantity="one">%d custom website</item>
+        <item quantity="other">%d custom websites</item>
+    </plurals>
+    <string name="group_switch_cd">Enable “%1$s”</string>
+    <string name="group_no_apps">No apps yet — tap to choose some</string>
+    <string name="chip_pause">Breathe first</string>
+    <string name="chip_web">Websites</string>
+    <string name="chip_custom">Custom timing</string>
+    <string name="chip_none">No reminders on</string>
+
+    <!-- Group editor -->
+    <string name="edit_tab_apps">Apps</string>
+    <string name="edit_tab_apps_count">Apps (%1$d)</string>
+    <string name="edit_name">Name</string>
+    <string name="edit_name_hint">e.g. Social</string>
+    <string name="edit_features">Features</string>
+    <string name="edit_pause_hint">Show the deep-breathing screen before these apps open.</string>
+    <string name="edit_remind_hint">After you’ve used them for a while, check in and ask whether you want to keep going.</string>
+    <string name="edit_web">Also remind on their websites</string>
+    <string name="edit_web_hint">For example, if you chose X, opening x.com in a browser also triggers a reminder.</string>
+    <string name="edit_timing">Timing</string>
+    <string name="edit_custom_timing">Use custom timing for this group</string>
+    <string name="edit_timing_off">Uses the global timing from the Settings tab</string>
+    <string name="edit_sites">Custom websites</string>
+    <string name="edit_sites_hint">For websites without an app, such as news.example.com. Websites that match the apps you chose are included automatically, so you don’t need to add them.</string>
+    <string name="edit_sites_empty">No custom websites yet</string>
+    <string name="edit_site_input_hint">Website, e.g. news.example.com</string>
+    <string name="edit_site_add">Add</string>
+    <string name="edit_delete">Delete group</string>
+    <string name="edit_search_hint">Search apps</string>
+    <string name="edit_loading">Loading apps…</string>
+    <string name="edit_no_apps_found">No apps to choose from</string>
+    <string name="edit_no_match">No results for “%1$s”</string>
+    <string name="edit_count_none">No apps chosen yet. Tap an app to select it.</string>
+    <plurals name="edit_count">
+        <item quantity="one">%1$d app selected — selected apps are listed first</item>
+        <item quantity="other">%1$d apps selected — selected apps are listed first</item>
+    </plurals>
+    <string name="edit_site_invalid">That doesn’t look like a web address. Try something like news.example.com</string>
+    <string name="edit_site_dup">%1$s is already on the list</string>
+    <string name="edit_site_remove_cd">Remove %1$s</string>
+    <string name="edit_not_found">This group couldn’t be found</string>
+    <string name="edit_name_required">Please give the group a name</string>
+    <string name="edit_saved">Saved “%1$s”</string>
+    <string name="edit_delete_title">Delete “%1$s”?</string>
+    <string name="edit_delete_title_unnamed">Delete this group?</string>
+    <string name="edit_delete_msg">Apps in this group won’t trigger reminders anymore. The apps themselves won’t be deleted.</string>
+    <string name="edit_deleted">Group deleted</string>
+    <string name="edit_unsaved_title">Unsaved changes</string>
+    <string name="edit_unsaved_msg">This group has changes that haven’t been saved. What would you like to do?</string>
+    <string name="edit_discard">Discard</string>
+    <string name="edit_keep_editing">Keep editing</string>
+
+    <!-- App list rows -->
+    <string name="app_sites">Websites: %1$s</string>
+    <string name="app_moves_here">Moves here from “%1$s” when you save</string>
+    <string name="app_in_group">In “%1$s”</string>
+    <string name="app_cd_checked">%1$s, selected</string>
+    <string name="app_cd_unchecked">%1$s, not selected</string>
+
+    <!-- Settings -->
+    <string name="settings_tagline">Groups without their own timing use these settings.</string>
+    <string name="settings_delay_hint">How long the breathing screen waits before you can choose “Continue”. 0 = no wait.</string>
+    <string name="settings_grace_title">Quiet time after “Continue”</string>
+    <string name="settings_grace_hint">After you choose Continue, reopening the same app during this time won’t be interrupted.</string>
+    <string name="settings_remind_hint">While you stay in the same app, you’ll be asked this often whether you want to keep going.</string>
+    <string name="settings_remind_delay_hint">How long the in-use reminder screen waits before you can choose to keep going. 0 = no wait.</string>
+    <string name="language_caption">語言 / Language</string>
+    <string name="lang_system">System</string>
+    <string name="lang_zh">繁體中文</string>
+    <string name="lang_en">English</string>
+    <string name="lang_hint">“System” uses your phone’s language.</string>
+    <string name="about_title">About &amp; privacy</string>
+    <string name="about_body">No internet permission, no ads. All settings and counts stay on this phone and are never sent anywhere.</string>
+    <string name="about_access">The accessibility permission is only used to know which app is in the foreground. To recognise the websites you chose, only the URL in a browser’s address bar is read — nothing else on screen is ever read.</string>
+    <string name="samsung_title">Tip for Samsung phones</string>
+    <string name="samsung_body">In your phone’s Settings → Battery → One Breath, set it to “Unrestricted” so battery saving doesn’t shut it down and reminders don’t suddenly stop working.</string>
+    <string name="version">One Breath version %1$s</string>
+    <string name="master_caption">Master switch</string>
+    <string name="master_title">Enable reminders</string>
+    <string name="master_hint">Turn off to pause everything. Your groups and settings are kept.</string>
+
+    <!-- Pause / in-use reminder screen -->
+    <string-array name="pause_prompts">
+        <item>What did you open it for?</item>
+        <item>Does this really need to happen now?</item>
+        <item>Will you feel better after scrolling?</item>
+        <item>Have a sip of water, then decide.</item>
+        <item>Do you need it, or is it just habit?</item>
+        <item>What you meant to do next — have you done it?</item>
+        <item>What do you actually want right now?</item>
+        <item>Are you bored, or tired?</item>
+        <item>Will you thank yourself for this in five minutes?</item>
+        <item>Look out the window first, then decide.</item>
+        <item>Is there a small thing you’d rather do?</item>
+        <item>Is what you’re looking for really in here?</item>
+    </string-array>
+    <string-array name="pause_remind_prompts">
+        <item>Keep going?</item>
+        <item>Have you done what you came here to do?</item>
+        <item>Now is a good moment to stop.</item>
+        <item>How are your eyes and shoulders?</item>
+        <item>Was this time well spent?</item>
+        <item>How about getting up for a little walk?</item>
+        <item>Do you still remember why you opened it?</item>
+        <item>Will scrolling more make you happier?</item>
+    </string-array>
+    <string name="pause_eyebrow_open">Pause. Take a deep breath.</string>
+    <plurals name="pause_eyebrow_used">
+        <item quantity="one">You’ve been on it for %d minute</item>
+        <item quantity="other">You’ve been on it for %d minutes</item>
+    </plurals>
+    <string name="pause_eyebrow_used_unknown">You’ve been on it for a while</string>
+    <plurals name="pause_stat_open">
+        <item quantity="one">First time opening %2$s today</item>
+        <item quantity="other">You’ve opened %2$s %1$d times today</item>
+    </plurals>
+    <plurals name="pause_stat_remind">
+        <item quantity="one">Opened %1$s once today</item>
+        <item quantity="other">Opened %1$s %2$d times today</item>
+    </plurals>
+    <string name="pause_stat_remind_none">Taking a pause is a way of looking after yourself</string>
+    <string name="pause_remind_primary">Enough for now</string>
+    <string name="pause_remind_secondary">A little longer</string>
+    <string name="pause_open_primary">Never mind, I’ll skip it</string>
+    <string name="pause_open_secondary">I’m sure — continue to %1$s</string>
+    <string name="pause_this_site">this website</string>
+    <string name="orb_inhale">Breathe in</string>
+    <string name="orb_exhale">Breathe out</string>
+    <string name="orb_still">Breathe slowly</string>
+    <!-- Letter spacing of the breathing cue, in hundredths of an em (wide tracking only suits CJK). -->
+    <integer name="orb_cue_letter_spacing_pct">8</integer>
 </resources>

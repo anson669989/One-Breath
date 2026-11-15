@@ -1,7 +1,10 @@
 package com.onebreath.app.ui;
 
+import android.content.Context;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.onebreath.app.R;
 
 /** 一條有範圍（min..max）的 SeekBar 加上即時數值文字。SeekBar 本身從 0 起算，這裡做位移。 */
 final class SeekRow {
@@ -58,15 +61,18 @@ final class SeekRow {
         return Math.max(min, Math.min(max, value));
     }
 
-    static String seconds(int s) {
-        return s == 0 ? "不用等" : s + " 秒";
+    // c 必須是已套用 App 語言的 Context（Activity 本身即可）
+
+    static String seconds(Context c, int s) {
+        return s == 0 ? c.getString(R.string.value_no_wait)
+                : c.getResources().getQuantityString(R.plurals.value_seconds, s, s);
     }
 
-    static String minutes(int m) {
-        return m + " 分鐘";
+    static String minutes(Context c, int m) {
+        return c.getResources().getQuantityString(R.plurals.value_minutes, m, m);
     }
 
-    static String everyMinutes(int m) {
-        return "每 " + m + " 分鐘";
+    static String everyMinutes(Context c, int m) {
+        return c.getResources().getQuantityString(R.plurals.value_every_minutes, m, m);
     }
 }

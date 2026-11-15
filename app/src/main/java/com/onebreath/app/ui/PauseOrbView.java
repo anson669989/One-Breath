@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.onebreath.app.R;
+
 /**
  * 喘口氣畫面的主角：一顆會呼吸的光球。刻意不顯示任何倒數（秒數、進度環），不讓人盯著時間等。
  *
@@ -49,9 +51,10 @@ public class PauseOrbView extends View {
     private boolean running;
 
 
-    private String inhaleText = "吸氣";
-    private String exhaleText = "吐氣";
-    private String stillText = "慢慢呼吸";
+    // 提示字跟著 App 語言（View 的 Context 就是已套用語言的 PauseActivity）
+    private String inhaleText = "";
+    private String exhaleText = "";
+    private String stillText = "";
 
     public PauseOrbView(Context c) {
         super(c);
@@ -74,7 +77,11 @@ public class PauseOrbView extends View {
         rimPaint.setStyle(Paint.Style.STROKE);
         wavePaint.setStyle(Paint.Style.STROKE);
         cuePaint.setTextAlign(Paint.Align.CENTER);
-        cuePaint.setLetterSpacing(0.35f);
+        // 中文用寬字距（0.35em），英文字距太寬會很難讀，所以由各語言的資源決定
+        cuePaint.setLetterSpacing(getResources().getInteger(R.integer.orb_cue_letter_spacing_pct) / 100f);
+        inhaleText = getContext().getString(R.string.orb_inhale);
+        exhaleText = getContext().getString(R.string.orb_exhale);
+        stillText = getContext().getString(R.string.orb_still);
         applyColors();
     }
 
@@ -140,6 +147,11 @@ public class PauseOrbView extends View {
         // 字級：照系統字體大小，但不能大過球心
         float cueSize = Math.min(sp(18), coreMin * 0.34f);
         cuePaint.setTextSize(cueSize);
+        // 較長的語言（例如英文 "Breathe out"）要縮小到放得進最小的球心直徑；中文本來就放得下，不受影響
+        float widest = Math.max(cuePaint.measureText(inhaleText),
+                Math.max(cuePaint.measureText(exhaleText), cuePaint.measureText(stillText)));
+        float limit = coreMin * 2f;
+        if (widest > limit && widest > 0f) cuePaint.setTextSize(cueSize * limit / widest);
         Paint.FontMetrics cueFm = cuePaint.getFontMetrics();
         cueBaseline = cy - (cueFm.ascent + cueFm.descent) / 2f;
 

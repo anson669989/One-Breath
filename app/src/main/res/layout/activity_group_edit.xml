@@ -21,7 +21,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:contentDescription="返回"
+            android:contentDescription="@string/back"
             android:src="@drawable/ic_back"
             android:tint="@color/text_primary" />
 
@@ -41,7 +41,7 @@
             android:id="@+id/btnSave"
             style="@style/PillButton"
             android:layout_marginLeft="8dp"
-            android:text="儲存" />
+            android:text="@string/save" />
     </LinearLayout>
 
     <!-- 分段切換 -->
@@ -65,7 +65,7 @@
             android:gravity="center"
             android:minHeight="44dp"
             android:singleLine="true"
-            android:text="設定"
+            android:text="@string/title_settings"
             android:textSize="15sp" />
 
         <TextView
@@ -77,7 +77,7 @@
             android:gravity="center"
             android:minHeight="44dp"
             android:singleLine="true"
-            android:text="App"
+            android:text="@string/edit_tab_apps"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -105,12 +105,12 @@
                 <TextView
                     style="@style/TextCaption"
                     android:layout_marginTop="8dp"
-                    android:text="名稱" />
+                    android:text="@string/edit_name" />
 
                 <EditText
                     android:id="@+id/editName"
                     style="@style/InputBox"
-                    android:hint="例如：社群"
+                    android:hint="@string/edit_name_hint"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLength="30" />
@@ -118,7 +118,7 @@
                 <!-- 功能 -->
                 <TextView
                     style="@style/TextCaption"
-                    android:text="功能" />
+                    android:text="@string/edit_features" />
 
                 <LinearLayout style="@style/CardBox">
 
@@ -139,11 +139,11 @@
 
                             <TextView
                                 style="@style/TextCardTitle"
-                                android:text="開啟前喘口氣" />
+                                android:text="@string/feature_pause" />
 
                             <TextView
                                 style="@style/TextHint"
-                                android:text="打開這些 App 前，先跳出深呼吸畫面。" />
+                                android:text="@string/edit_pause_hint" />
                         </LinearLayout>
 
                         <Switch
@@ -173,11 +173,11 @@
 
                             <TextView
                                 style="@style/TextCardTitle"
-                                android:text="使用中提醒" />
+                                android:text="@string/feature_remind" />
 
                             <TextView
                                 style="@style/TextHint"
-                                android:text="用了一段時間後，再跳出來問你要不要繼續。" />
+                                android:text="@string/edit_remind_hint" />
                         </LinearLayout>
 
                         <Switch
@@ -207,11 +207,11 @@
 
                             <TextView
                                 style="@style/TextCardTitle"
-                                android:text="連同對應網站一起提醒" />
+                                android:text="@string/edit_web" />
 
                             <TextView
                                 style="@style/TextHint"
-                                android:text="例如選了 X，用瀏覽器開 x.com 也會提醒。" />
+                                android:text="@string/edit_web_hint" />
                         </LinearLayout>
 
                         <Switch
@@ -226,7 +226,7 @@
                 <!-- 時間 -->
                 <TextView
                     style="@style/TextCaption"
-                    android:text="時間" />
+                    android:text="@string/edit_timing" />
 
                 <LinearLayout style="@style/CardBox">
 
@@ -243,7 +243,7 @@
                             style="@style/TextCardTitle"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:text="這個群組使用自己的時間設定" />
+                            android:text="@string/edit_custom_timing" />
 
                         <Switch
                             android:id="@+id/switchCustom"
@@ -256,7 +256,7 @@
                     <TextView
                         android:id="@+id/timingOff"
                         style="@style/TextHint"
-                        android:text="使用「設定」頁的全域時間"
+                        android:text="@string/edit_timing_off"
                         android:textColor="@color/text_muted" />
 
                     <LinearLayout
@@ -278,7 +278,7 @@
                                 style="@style/TextBody"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="開啟前等待秒數" />
+                                android:text="@string/delay_title" />
 
                             <TextView
                                 android:id="@+id/labelGDelay"
@@ -302,7 +302,7 @@
                                 style="@style/TextBody"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="每使用幾分鐘提醒一次" />
+                                android:text="@string/remind_interval_title" />
 
                             <TextView
                                 android:id="@+id/labelGRemind"
@@ -326,7 +326,7 @@
                                 style="@style/TextBody"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="提醒畫面的等待秒數" />
+                                android:text="@string/remind_delay_title" />
 
                             <TextView
                                 android:id="@+id/labelGRemindDelay"
@@ -344,14 +344,14 @@
                 <!-- 自訂網站 -->
                 <TextView
                     style="@style/TextCaption"
-                    android:text="自訂網站" />
+                    android:text="@string/edit_sites" />
 
                 <LinearLayout style="@style/CardBox">
 
                     <TextView
                         style="@style/TextHint"
                         android:layout_marginTop="0dp"
-                        android:text="給沒有 App 的網站用，例如 news.example.com。已選 App 對應的網站會自動算進來，不用另外加。" />
+                        android:text="@string/edit_sites_hint" />
 
                     <LinearLayout
                         android:id="@+id/siteList"
@@ -363,7 +363,7 @@
                     <TextView
                         android:id="@+id/siteEmpty"
                         style="@style/TextHint"
-                        android:text="還沒有自訂網站"
+                        android:text="@string/edit_sites_empty"
                         android:textColor="@color/text_muted" />
 
                     <LinearLayout
@@ -378,7 +378,7 @@
                             style="@style/InputBox"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:hint="網址，例如 news.example.com"
+                            android:hint="@string/edit_site_input_hint"
                             android:imeOptions="actionDone"
                             android:inputType="textUri" />
 
@@ -386,7 +386,7 @@
                             android:id="@+id/siteAdd"
                             style="@style/PillButtonSoft"
                             android:layout_marginLeft="8dp"
-                            android:text="加入" />
+                            android:text="@string/edit_site_add" />
                     </LinearLayout>
 
                     <TextView
@@ -401,7 +401,7 @@
                     style="@style/FlatButton"
                     android:layout_width="match_parent"
                     android:layout_marginTop="24dp"
-                    android:text="刪除群組"
+                    android:text="@string/edit_delete"
                     android:textColor="@color/warn_text"
                     android:visibility="gone" />
             </LinearLayout>
@@ -422,7 +422,7 @@
                 android:layout_marginRight="16dp"
                 android:drawableLeft="@android:drawable/ic_menu_search"
                 android:drawablePadding="6dp"
-                android:hint="搜尋 App"
+                android:hint="@string/edit_search_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:paddingLeft="8dp" />
@@ -456,7 +456,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="24dp"
-                    android:text="載入 App 中…"
+                    android:text="@string/edit_loading"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
             </FrameLayout>

@@ -21,6 +21,6 @@
         android:id="@+id/siteRemove"
         style="@style/FlatButton"
         android:layout_marginLeft="8dp"
-        android:text="移除"
+        android:text="@string/remove"
         android:textColor="@color/warn_text" />
 </LinearLayout>

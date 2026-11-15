@@ -26,18 +26,18 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="群組" />
+                android:text="@string/title_groups" />
 
             <Button
                 android:id="@+id/addGroupBtn"
                 style="@style/PillButton"
                 android:layout_marginLeft="12dp"
-                android:text="＋ 新增群組" />
+                android:text="@string/groups_add" />
         </LinearLayout>
 
         <TextView
             style="@style/TextHint"
-            android:text="把分心 App 分組，每組各自決定要哪些提醒。"
+            android:text="@string/groups_tagline"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -55,24 +55,24 @@
 
             <TextView
                 style="@style/TextCardTitle"
-                android:text="群組是什麼？" />
+                android:text="@string/groups_empty_title" />
 
             <TextView
                 style="@style/TextHint"
                 android:layout_marginTop="8dp"
-                android:text="群組就是一包要提醒的 App，例如「社群」放 Instagram、Threads，「影音」放 YouTube、Netflix。" />
+                android:text="@string/groups_empty_body1" />
 
             <TextView
                 style="@style/TextHint"
                 android:layout_marginTop="8dp"
-                android:text="每個群組可以自己選：打開前要不要先喘口氣、用久了要不要提醒、用瀏覽器開它們的網站時要不要也提醒。" />
+                android:text="@string/groups_empty_body2" />
 
             <Button
                 android:id="@+id/emptyAddBtn"
                 style="@style/PillButton"
                 android:layout_width="match_parent"
                 android:layout_marginTop="16dp"
-                android:text="＋ 建立第一個群組" />
+                android:text="@string/create_first_group" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

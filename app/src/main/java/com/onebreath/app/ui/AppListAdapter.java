@@ -47,6 +47,8 @@ final class AppListAdapter extends BaseAdapter {
         CheckBox check;
     }
 
+    /** 建立時傳進來的 Activity（已套用 App 語言），用來取字串。 */
+    private final Context context;
     private final LayoutInflater inflater;
     /** 正在編輯的群組的 apps 集合（直接修改它）。 */
     private final Set<String> selected;
@@ -55,6 +57,7 @@ final class AppListAdapter extends BaseAdapter {
     private String query = "";
 
     AppListAdapter(Context c, Set<String> selected) {
+        this.context = c;
         this.inflater = LayoutInflater.from(c);
         this.selected = selected;
     }
@@ -141,22 +144,22 @@ final class AppListAdapter extends BaseAdapter {
         h.check.setChecked(checked);
 
         if (e.domains != null) {
-            h.sub.setText("網站：" + e.domains);
+            h.sub.setText(context.getString(R.string.app_sites, e.domains));
             h.sub.setVisibility(View.VISIBLE);
         } else {
             h.sub.setVisibility(View.GONE);
         }
 
         if (e.otherGroup != null) {
-            h.tag.setText(checked
-                    ? "儲存後會從「" + e.otherGroup + "」移過來"
-                    : "在「" + e.otherGroup + "」");
+            h.tag.setText(context.getString(checked ? R.string.app_moves_here : R.string.app_in_group,
+                    e.otherGroup));
             h.tag.setVisibility(View.VISIBLE);
         } else {
             h.tag.setVisibility(View.GONE);
         }
 
-        convertView.setContentDescription(e.label + (checked ? "，已勾選" : "，未勾選"));
+        convertView.setContentDescription(context.getString(
+                checked ? R.string.app_cd_checked : R.string.app_cd_unchecked, e.label));
         return convertView;
     }
 }

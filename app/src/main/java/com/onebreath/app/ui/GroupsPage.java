@@ -2,6 +2,7 @@ package com.onebreath.app.ui;
 
 import android.app.AlertDialog;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -22,8 +23,6 @@ import java.util.Map;
 /** 群組頁：列出每個群組的卡片，可以開關、點進去編輯、新增群組。 */
 final class GroupsPage {
 
-    /** 新增群組時的快速範本，只用來預填名稱。 */
-    private static final String[] PRESETS = {"社群", "影音", "遊戲", "購物", "新聞"};
     private static final int MAX_ICONS = 5;
 
     private final MainActivity act;
@@ -52,16 +51,18 @@ final class GroupsPage {
     }
 
     void showCreateDialog() {
-        String[] items = new String[PRESETS.length + 1];
-        System.arraycopy(PRESETS, 0, items, 0, PRESETS.length);
-        items[PRESETS.length] = "自訂名稱…";
+        // 範本只用來預填名稱，跟著目前的介面語言；存下去之後就是使用者自己的群組名稱，不會再翻譯
+        final String[] presets = act.getResources().getStringArray(R.array.group_presets);
+        String[] items = new String[presets.length + 1];
+        System.arraycopy(presets, 0, items, 0, presets.length);
+        items[presets.length] = act.getString(R.string.groups_custom_name);
         new AlertDialog.Builder(act)
-                .setTitle("新增群組")
+                .setTitle(R.string.new_group_title)
                 .setItems(items, (d, which) -> {
-                    String name = which < PRESETS.length ? PRESETS[which] : "";
+                    String name = which < presets.length ? presets[which] : "";
                     act.startActivity(GroupEditActivity.newGroupIntent(act, name));
                 })
-                .setNegativeButton("取消", null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 
@@ -73,19 +74,23 @@ final class GroupsPage {
         LinearLayout icons = card.findViewById(R.id.groupIcons);
         LinearLayout chips = card.findViewById(R.id.groupChips);
 
-        String title = g.name == null || g.name.trim().isEmpty() ? "（未命名）" : g.name;
+        String title = g.name == null || g.name.trim().isEmpty() ? act.getString(R.string.unnamed) : g.name;
         name.setText(title);
 
-        StringBuilder m = new StringBuilder();
-        m.append(g.apps.size()).append(" 個 App");
-        if (!g.sites.isEmpty()) m.append(" · ").append(g.sites.size()).append(" 個自訂網站");
-        meta.setText(m);
+        Resources res = act.getResources();
+        String apps = res.getQuantityString(R.plurals.group_meta_apps, g.apps.size(), g.apps.size());
+        if (g.sites.isEmpty()) {
+            meta.setText(apps);
+        } else {
+            meta.setText(act.getString(R.string.two_parts, apps,
+                    res.getQuantityString(R.plurals.group_meta_sites, g.sites.size(), g.sites.size())));
+        }
 
         fillIcons(icons, g);
         fillChips(chips, g);
 
         sw.setChecked(g.enabled);
-        sw.setContentDescription("啟用「" + title + "」");
+        sw.setContentDescription(act.getString(R.string.group_switch_cd, title));
         applyEnabledLook(card, g.enabled);
         final String groupId = g.id;
         sw.setOnCheckedChangeListener((b, on) -> {
@@ -115,7 +120,7 @@ final class GroupsPage {
         row.removeAllViews();
         if (g.apps.isEmpty()) {
             TextView t = new TextView(act);
-            t.setText("還沒選 App，點進來挑選");
+            t.setText(R.string.group_no_apps);
             t.setTextColor(act.getColor(R.color.text_muted));
             t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
             row.addView(t);
@@ -166,22 +171,22 @@ final class GroupsPage {
         row.removeAllViews();
         boolean any = false;
         if (g.pauseOnOpen) {
-            row.addView(UiKit.chip(act, "開啟前暫停", false));
+            row.addView(UiKit.chip(act, act.getString(R.string.chip_pause), false));
             any = true;
         }
         if (g.remindInUse) {
-            row.addView(UiKit.chip(act, "使用中提醒", false));
+            row.addView(UiKit.chip(act, act.getString(R.string.feature_remind), false));
             any = true;
         }
         if (g.blockWeb || !g.sites.isEmpty()) {
-            row.addView(UiKit.chip(act, "網站", false));
+            row.addView(UiKit.chip(act, act.getString(R.string.chip_web), false));
             any = true;
         }
         if (g.customTiming) {
-            row.addView(UiKit.chip(act, "自訂時間", true));
+            row.addView(UiKit.chip(act, act.getString(R.string.chip_custom), true));
         }
         if (!any) {
-            row.addView(UiKit.chip(act, "沒有開啟任何提醒", true));
+            row.addView(UiKit.chip(act, act.getString(R.string.chip_none), true));
         }
     }
 }

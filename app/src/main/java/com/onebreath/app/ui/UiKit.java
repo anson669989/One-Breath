@@ -52,6 +52,17 @@ final class UiKit {
         return t;
     }
 
+    /** 分段切換的一格（bg_segment 裡）：選中時用 bg_segment_on 與主要文字色。 */
+    static void styleSegment(TextView t, boolean selected) {
+        if (selected) {
+            t.setBackgroundResource(R.drawable.bg_segment_on);
+        } else {
+            t.setBackground(null);
+        }
+        t.setTextColor(t.getContext().getColor(selected ? R.color.text_primary : R.color.text_secondary));
+        t.setSelected(selected);
+    }
+
     /** 讓整列（標題＋說明＋Switch）都可以點來切換。 */
     static void bindToggleRow(View row, Switch sw) {
         row.setOnClickListener(v -> sw.toggle());

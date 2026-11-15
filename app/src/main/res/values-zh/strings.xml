@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  繁體中文。任何中文系統語系（zh-TW、zh-HK、zh-CN…）在「跟隨系統」時都會用這份；
+  App 內選「繁體中文」時強制用 zh-TW。鍵值必須和 values/strings.xml 完全一致。
+  這裡的文字就是 v2.1 原本寫死在程式裡的文字，請勿任意改動。
+-->
+<resources>
+    <string name="app_name">喘口氣</string>
+    <string name="service_description">偵測現在最前面的是哪個 App；若是你選定的分心 App，就先跳出深呼吸畫面，使用一段時間後也會再提醒你一次。在瀏覽器裡，只會讀取網址列上的網址，用來認出你選定的網站。畫面上的其他內容一概不讀，所有資料都只存在這支手機上，不會上傳任何東西。</string>
+
+    <!-- 共用 -->
+    <string name="title_home">首頁</string>
+    <string name="title_groups">群組</string>
+    <string name="title_settings">設定</string>
+    <string name="cancel">取消</string>
+    <string name="save">儲存</string>
+    <string name="delete">刪除</string>
+    <string name="remove">移除</string>
+    <string name="back">返回</string>
+    <string name="two_parts">%1$s · %2$s</string>
+    <string name="create_first_group">＋ 建立第一個群組</string>
+    <string name="new_group_title">新增群組</string>
+    <string name="unnamed">（未命名）</string>
+    <string name="unnamed_group">未命名群組</string>
+    <string name="other_group">其他群組</string>
+    <string name="legacy_group_name">我的 App</string>
+    <string name="feature_pause">開啟前喘口氣</string>
+    <string name="feature_remind">使用中提醒</string>
+    <string name="delay_title">開啟前等待秒數</string>
+    <string name="remind_interval_title">每使用幾分鐘提醒一次</string>
+    <string name="remind_delay_title">提醒畫面的等待秒數</string>
+
+    <!-- 滑桿旁的數值 -->
+    <string name="value_no_wait">不用等</string>
+    <plurals name="value_seconds">
+        <item quantity="other">%d 秒</item>
+    </plurals>
+    <plurals name="value_minutes">
+        <item quantity="other">%d 分鐘</item>
+    </plurals>
+    <plurals name="value_every_minutes">
+        <item quantity="other">每 %d 分鐘</item>
+    </plurals>
+
+    <!-- 首頁 -->
+    <string name="home_tagline">打開分心 App 前先深呼吸幾秒，想開還是開得了。</string>
+    <string name="home_access_btn">① 開啟無障礙權限（找「喘口氣」）</string>
+    <string name="home_restrict_hint">開關是灰色按不了？（Android 13 以上、三星手機常見）先按下面按鈕 → 右上角 ⋮ →「允許受限制的設定」，再回來按 ①。</string>
+    <string name="home_app_info_btn">開啟 App 資訊頁</string>
+    <string name="home_today">今天</string>
+    <plurals name="home_breaths">
+        <item quantity="other">次喘口氣</item>
+    </plurals>
+    <plurals name="home_resisted">
+        <item quantity="other">次決定不開了</item>
+    </plurals>
+    <string name="home_watching">提醒中的 App</string>
+    <string name="home_summary_hint">點這裡管理群組與 App</string>
+    <string name="home_summary_hint_paused">提醒已全部暫停 · 點這裡管理群組與 App</string>
+    <plurals name="home_summary_groups">
+        <item quantity="other">%d 個群組</item>
+    </plurals>
+    <plurals name="home_summary_apps">
+        <item quantity="other">%d 個 App 提醒中</item>
+    </plurals>
+    <string name="home_empty_title">還沒有選任何 App</string>
+    <string name="home_empty_body">先建一個群組，例如「社群」，把 Instagram、Threads 放進去。之後打開它們前，就會先喘口氣。</string>
+    <string name="status_ok_title">✓ 運作中</string>
+    <string name="status_ok_body">無障礙權限已開啟，打開群組裡的 App 前會先喘口氣。</string>
+    <string name="status_off_title">✗ 還沒開啟無障礙權限</string>
+    <string name="status_off_body">沒有這個權限，喘口氣就不知道你打開了哪個 App，提醒不會出現。按下面按鈕 → 已安裝的應用程式 → 喘口氣 → 開啟。</string>
+
+    <!-- 群組頁 -->
+    <string name="groups_add">＋ 新增群組</string>
+    <string name="groups_tagline">把分心 App 分組，每組各自決定要哪些提醒。</string>
+    <string name="groups_empty_title">群組是什麼？</string>
+    <string name="groups_empty_body1">群組就是一包要提醒的 App，例如「社群」放 Instagram、Threads，「影音」放 YouTube、Netflix。</string>
+    <string name="groups_empty_body2">每個群組可以自己選：打開前要不要先喘口氣、用久了要不要提醒、用瀏覽器開它們的網站時要不要也提醒。</string>
+    <string name="groups_custom_name">自訂名稱…</string>
+    <string-array name="group_presets">
+        <item>社群</item>
+        <item>影音</item>
+        <item>遊戲</item>
+        <item>購物</item>
+        <item>新聞</item>
+    </string-array>
+    <plurals name="group_meta_apps">
+        <item quantity="other">%d 個 App</item>
+    </plurals>
+    <plurals name="group_meta_sites">
+        <item quantity="other">%d 個自訂網站</item>
+    </plurals>
+    <string name="group_switch_cd">啟用「%1$s」</string>
+    <string name="group_no_apps">還沒選 App，點進來挑選</string>
+    <string name="chip_pause">開啟前暫停</string>
+    <string name="chip_web">網站</string>
+    <string name="chip_custom">自訂時間</string>
+    <string name="chip_none">沒有開啟任何提醒</string>
+
+    <!-- 群組編輯 -->
+    <string name="edit_tab_apps">App</string>
+    <string name="edit_tab_apps_count">App（%1$d）</string>
+    <string name="edit_name">名稱</string>
+    <string name="edit_name_hint">例如：社群</string>
+    <string name="edit_features">功能</string>
+    <string name="edit_pause_hint">打開這些 App 前，先跳出深呼吸畫面。</string>
+    <string name="edit_remind_hint">用了一段時間後，再跳出來問你要不要繼續。</string>
+    <string name="edit_web">連同對應網站一起提醒</string>
+    <string name="edit_web_hint">例如選了 X，用瀏覽器開 x.com 也會提醒。</string>
+    <string name="edit_timing">時間</string>
+    <string name="edit_custom_timing">這個群組使用自己的時間設定</string>
+    <string name="edit_timing_off">使用「設定」頁的全域時間</string>
+    <string name="edit_sites">自訂網站</string>
+    <string name="edit_sites_hint">給沒有 App 的網站用，例如 news.example.com。已選 App 對應的網站會自動算進來，不用另外加。</string>
+    <string name="edit_sites_empty">還沒有自訂網站</string>
+    <string name="edit_site_input_hint">網址，例如 news.example.com</string>
+    <string name="edit_site_add">加入</string>
+    <string name="edit_delete">刪除群組</string>
+    <string name="edit_search_hint">搜尋 App</string>
+    <string name="edit_loading">載入 App 中…</string>
+    <string name="edit_no_apps_found">找不到可以選的 App</string>
+    <string name="edit_no_match">找不到「%1$s」</string>
+    <string name="edit_count_none">還沒選 App，點一下就能勾選</string>
+    <plurals name="edit_count">
+        <item quantity="other">已選 %1$d 個 App，已選的排在最前面</item>
+    </plurals>
+    <string name="edit_site_invalid">這看起來不像網址，請輸入像 news.example.com 這樣的格式</string>
+    <string name="edit_site_dup">%1$s 已經在清單裡了</string>
+    <string name="edit_site_remove_cd">移除 %1$s</string>
+    <string name="edit_not_found">找不到這個群組</string>
+    <string name="edit_name_required">請幫群組取個名字</string>
+    <string name="edit_saved">已儲存「%1$s」</string>
+    <string name="edit_delete_title">刪除「%1$s」？</string>
+    <string name="edit_delete_title_unnamed">刪除「這個群組」？</string>
+    <string name="edit_delete_msg">群組裡的 App 之後就不會再被提醒。App 本身不會被刪除。</string>
+    <string name="edit_deleted">已刪除群組</string>
+    <string name="edit_unsaved_title">還沒儲存</string>
+    <string name="edit_unsaved_msg">這個群組有改動還沒儲存，要怎麼處理？</string>
+    <string name="edit_discard">放棄修改</string>
+    <string name="edit_keep_editing">繼續編輯</string>
+
+    <!-- App 清單的一列 -->
+    <string name="app_sites">網站：%1$s</string>
+    <string name="app_moves_here">儲存後會從「%1$s」移過來</string>
+    <string name="app_in_group">在「%1$s」</string>
+    <string name="app_cd_checked">%1$s，已勾選</string>
+    <string name="app_cd_unchecked">%1$s，未勾選</string>
+
+    <!-- 設定頁 -->
+    <string name="settings_tagline">群組沒有設定自己的時間時，就會用這裡的設定。</string>
+    <string name="settings_delay_hint">深呼吸畫面要等幾秒，才能選「繼續」。0 = 不用等。</string>
+    <string name="settings_grace_title">「繼續」後幾分鐘內不再提醒</string>
+    <string name="settings_grace_hint">選了繼續之後，這段時間內再打開同一個 App 不會被打斷。</string>
+    <string name="settings_remind_hint">一直停在同一個 App 時，每隔這麼久跳出來問你還要不要繼續。</string>
+    <string name="settings_remind_delay_hint">使用中提醒的畫面要等幾秒，才能選「繼續」。0 = 不用等。</string>
+    <string name="language_caption">語言 / Language</string>
+    <string name="lang_system">跟隨系統</string>
+    <string name="lang_zh">繁體中文</string>
+    <string name="lang_en">English</string>
+    <string name="lang_hint">「跟隨系統」會依手機的語言顯示。</string>
+    <string name="about_title">關於與隱私</string>
+    <string name="about_body">沒有網路權限、沒有廣告，所有設定和次數都只存在這支手機上，不會傳出去。</string>
+    <string name="about_access">無障礙權限只用來知道「現在前景是哪個 App」。為了認出你選的網站，在瀏覽器裡只會讀取網址列的網址，畫面上的其他內容一律不讀。</string>
+    <string name="samsung_title">三星手機小提醒</string>
+    <string name="samsung_body">設定 → 電池 → 喘口氣 → 設為「不受限制」，避免被省電機制關掉，提醒才不會突然失靈。</string>
+    <string name="version">喘口氣 版本 %1$s</string>
+    <string name="master_caption">總開關</string>
+    <string name="master_title">啟用提醒</string>
+    <string name="master_hint">關掉就全部暫停，群組和設定都會保留。</string>
+
+    <!-- 喘口氣畫面／使用中提醒畫面 -->
+    <string-array name="pause_prompts">
+        <item>你打開它是為了什麼？</item>
+        <item>這件事現在一定要做嗎？</item>
+        <item>滑完之後，你會覺得比較好嗎？</item>
+        <item>先喝口水，再決定。</item>
+        <item>真的需要，還是只是習慣？</item>
+        <item>等一下想做的事，做了嗎？</item>
+        <item>此刻的你，其實想要什麼？</item>
+        <item>是無聊，還是累了？</item>
+        <item>五分鐘後的你，會感謝這個決定嗎？</item>
+        <item>先看看窗外，再決定。</item>
+        <item>有沒有一件更想做的小事？</item>
+        <item>你在找的東西，在這裡嗎？</item>
+    </string-array>
+    <string-array name="pause_remind_prompts">
+        <item>還要繼續嗎？</item>
+        <item>原本想做的事，做完了嗎？</item>
+        <item>現在停下來，剛剛好。</item>
+        <item>眼睛和肩膀，還好嗎？</item>
+        <item>這段時間，花得值得嗎？</item>
+        <item>起來走走，好不好？</item>
+        <item>你還記得打開它的原因嗎？</item>
+        <item>再滑下去，會更開心嗎？</item>
+    </string-array>
+    <string name="pause_eyebrow_open">先停一下，深呼吸</string>
+    <plurals name="pause_eyebrow_used">
+        <item quantity="other">你已經用了 %d 分鐘</item>
+    </plurals>
+    <string name="pause_eyebrow_used_unknown">你已經用了一段時間</string>
+    <plurals name="pause_stat_open">
+        <item quantity="other">今天第 %1$d 次打開「%2$s」</item>
+    </plurals>
+    <plurals name="pause_stat_remind">
+        <item quantity="other">今天打開「%1$s」%2$d 次</item>
+    </plurals>
+    <string name="pause_stat_remind_none">停一下，也是一種照顧自己</string>
+    <string name="pause_remind_primary">夠了，先離開</string>
+    <string name="pause_remind_secondary">再用一下</string>
+    <string name="pause_open_primary">算了，不開了</string>
+    <string name="pause_open_secondary">我確定，繼續開「%1$s」</string>
+    <string name="pause_this_site">這個網站</string>
+    <string name="orb_inhale">吸氣</string>
+    <string name="orb_exhale">吐氣</string>
+    <string name="orb_still">慢慢呼吸</string>
+    <integer name="orb_cue_letter_spacing_pct">35</integer>
+</resources>

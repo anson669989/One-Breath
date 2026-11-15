@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.onebreath.app.R;
+import com.onebreath.app.data.AppLocale;
 import com.onebreath.app.data.Group;
 import com.onebreath.app.data.GroupStore;
 import com.onebreath.app.data.SiteCatalog;
@@ -93,6 +94,11 @@ public class GroupEditActivity extends Activity {
     private AppListAdapter adapter;
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(AppLocale.wrap(base));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_edit);
@@ -110,7 +116,7 @@ public class GroupEditActivity extends Activity {
             if (id != null) {
                 group = store.find(id);
                 if (group == null) {
-                    Toast.makeText(this, "找不到這個群組", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.edit_not_found, Toast.LENGTH_SHORT).show();
                     finish();
                     return;
                 }
@@ -175,11 +181,11 @@ public class GroupEditActivity extends Activity {
         appList = findViewById(R.id.appList);
 
         seekDelay = new SeekRow(findViewById(R.id.seekGDelay), findViewById(R.id.labelGDelay),
-                0, 30, SeekRow::seconds, null);
+                0, 30, v -> SeekRow.seconds(this, v), null);
         seekRemind = new SeekRow(findViewById(R.id.seekGRemind), findViewById(R.id.labelGRemind),
-                1, 60, SeekRow::everyMinutes, null);
+                1, 60, v -> SeekRow.everyMinutes(this, v), null);
         seekRemindDelay = new SeekRow(findViewById(R.id.seekGRemindDelay),
-                findViewById(R.id.labelGRemindDelay), 0, 30, SeekRow::seconds, null);
+                findViewById(R.id.labelGRemindDelay), 0, 30, v -> SeekRow.seconds(this, v), null);
     }
 
     private void bindListeners() {
@@ -255,18 +261,16 @@ public class GroupEditActivity extends Activity {
     }
 
     private void styleTab(TextView t, boolean selected) {
-        if (selected) {
-            t.setBackgroundResource(R.drawable.bg_segment_on);
-        } else {
-            t.setBackground(null);
-        }
-        t.setTextColor(getColor(selected ? R.color.text_primary : R.color.text_secondary));
-        t.setSelected(selected);
+        UiKit.styleSegment(t, selected);
     }
 
     private void updateTitle() {
         String n = editName.getText().toString().trim();
-        editTitle.setText(!n.isEmpty() ? n : (isNew ? "新增群組" : "（未命名）"));
+        if (!n.isEmpty()) {
+            editTitle.setText(n);
+        } else {
+            editTitle.setText(isNew ? R.string.new_group_title : R.string.unnamed);
+        }
     }
 
     private void updateTimingVisibility() {
@@ -277,18 +281,19 @@ public class GroupEditActivity extends Activity {
 
     private void updateCount() {
         int n = appsLoaded ? adapter.checkedCount() : group.apps.size();
-        tabApps.setText(n > 0 ? "App（" + n + "）" : "App");
-        appCount.setText(n == 0 ? "還沒選 App，點一下就能勾選" : "已選 " + n + " 個 App，已選的排在最前面");
+        tabApps.setText(n > 0 ? getString(R.string.edit_tab_apps_count, n) : getString(R.string.edit_tab_apps));
+        appCount.setText(n == 0 ? getString(R.string.edit_count_none)
+                : getResources().getQuantityString(R.plurals.edit_count, n, n));
     }
 
     private void updateEmptyText() {
         String q = searchBox.getText().toString().trim();
         if (!appsLoaded) {
-            appEmpty.setText("載入 App 中…");
+            appEmpty.setText(R.string.edit_loading);
         } else if (q.isEmpty()) {
-            appEmpty.setText("找不到可以選的 App");
+            appEmpty.setText(R.string.edit_no_apps_found);
         } else {
-            appEmpty.setText("找不到「" + q + "」");
+            appEmpty.setText(getString(R.string.edit_no_match, q));
         }
     }
 
@@ -306,11 +311,11 @@ public class GroupEditActivity extends Activity {
         if (raw.isEmpty()) return;
         String domain = SiteCatalog.normalize(raw);
         if (domain == null) {
-            showSiteError("這看起來不像網址，請輸入像 news.example.com 這樣的格式");
+            showSiteError(getString(R.string.edit_site_invalid));
             return;
         }
         if (group.sites.contains(domain)) {
-            showSiteError(domain + " 已經在清單裡了");
+            showSiteError(getString(R.string.edit_site_dup, domain));
             return;
         }
         group.sites.add(domain);
@@ -330,7 +335,7 @@ public class GroupEditActivity extends Activity {
             View row = getLayoutInflater().inflate(R.layout.item_site, siteList, false);
             ((TextView) row.findViewById(R.id.siteName)).setText(domain);
             Button remove = row.findViewById(R.id.siteRemove);
-            remove.setContentDescription("移除 " + domain);
+            remove.setContentDescription(getString(R.string.edit_site_remove_cd, domain));
             remove.setOnClickListener(v -> {
                 group.sites.remove(domain);
                 renderSites();
@@ -347,10 +352,13 @@ public class GroupEditActivity extends Activity {
         final String myId = group.id;
         final String self = getPackageName();
         final PackageManager pm = getPackageManager();
+        // 背景執行緒用不到 Activity 的 View，但字串要先在這裡用 Activity（已套用 App 語言）取好
+        final String unnamedGroup = getString(R.string.unnamed_group);
+        final String otherGroup = getString(R.string.other_group);
         new Thread(() -> {
             Map<String, String> names = new HashMap<>();
             for (Group g : store.getGroups()) {
-                String n = g.name == null || g.name.trim().isEmpty() ? "未命名群組" : g.name;
+                String n = g.name == null || g.name.trim().isEmpty() ? unnamedGroup : g.name;
                 names.put(g.id, n);
             }
             Intent main = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER);
@@ -365,7 +373,7 @@ public class GroupEditActivity extends Activity {
                 String gid = store.groupIdOfApp(pkg);
                 String other = null;
                 if (gid != null && !gid.equals(myId)) {
-                    other = names.containsKey(gid) ? names.get(gid) : "其他群組";
+                    other = names.containsKey(gid) ? names.get(gid) : otherGroup;
                 }
                 result.add(new AppListAdapter.AppEntry(pkg, ri.loadLabel(pm).toString(),
                         ri.loadIcon(pm), dom, other));
@@ -417,12 +425,12 @@ public class GroupEditActivity extends Activity {
         collect();
         if (group.name.isEmpty()) {
             showTab(TAB_SETTINGS);
-            editName.setError("請幫群組取個名字");
+            editName.setError(getString(R.string.edit_name_required));
             editName.requestFocus();
             return;
         }
         store.save(group);
-        Toast.makeText(this, "已儲存「" + group.name + "」", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.edit_saved, group.name), Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();
     }
@@ -430,14 +438,15 @@ public class GroupEditActivity extends Activity {
     private void confirmDelete() {
         String n = editName.getText().toString().trim();
         new AlertDialog.Builder(this)
-                .setTitle("刪除「" + (n.isEmpty() ? "這個群組" : n) + "」？")
-                .setMessage("群組裡的 App 之後就不會再被提醒。App 本身不會被刪除。")
-                .setPositiveButton("刪除", (d, w) -> {
+                .setTitle(n.isEmpty() ? getString(R.string.edit_delete_title_unnamed)
+                        : getString(R.string.edit_delete_title, n))
+                .setMessage(R.string.edit_delete_msg)
+                .setPositiveButton(R.string.delete, (d, w) -> {
                     store.delete(group.id);
-                    Toast.makeText(this, "已刪除群組", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.edit_deleted, Toast.LENGTH_SHORT).show();
                     finish();
                 })
-                .setNegativeButton("取消", null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 
@@ -447,11 +456,11 @@ public class GroupEditActivity extends Activity {
             return;
         }
         new AlertDialog.Builder(this)
-                .setTitle("還沒儲存")
-                .setMessage("這個群組有改動還沒儲存，要怎麼處理？")
-                .setPositiveButton("儲存", (d, w) -> save())
-                .setNegativeButton("放棄修改", (d, w) -> finish())
-                .setNeutralButton("繼續編輯", null)
+                .setTitle(R.string.edit_unsaved_title)
+                .setMessage(R.string.edit_unsaved_msg)
+                .setPositiveButton(R.string.save, (d, w) -> save())
+                .setNegativeButton(R.string.edit_discard, (d, w) -> finish())
+                .setNeutralButton(R.string.edit_keep_editing, null)
                 .show();
     }
 

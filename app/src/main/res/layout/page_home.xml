@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 首頁：權限狀態、總開關、今天的次數、群組摘要 -->
+<!-- 首頁：權限狀態、今天的次數、群組摘要 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,11 +16,11 @@
 
         <TextView
             style="@style/TextPageTitle"
-            android:text="喘口氣" />
+            android:text="@string/app_name" />
 
         <TextView
             style="@style/TextHint"
-            android:text="打開分心 App 前先深呼吸幾秒，想開還是開得了。"
+            android:text="@string/home_tagline"
             android:textSize="14sp" />
 
         <!-- 權限狀態 -->
@@ -49,59 +49,26 @@
                 style="@style/PillButton"
                 android:layout_width="match_parent"
                 android:layout_marginTop="14dp"
-                android:text="① 開啟無障礙權限（找「喘口氣」）" />
+                android:text="@string/home_access_btn" />
 
             <TextView
                 android:id="@+id/restrictHint"
                 style="@style/TextHint"
                 android:layout_marginTop="12dp"
-                android:text="開關是灰色按不了？（Android 13 以上、三星手機常見）先按下面按鈕 → 右上角 ⋮ →「允許受限制的設定」，再回來按 ①。" />
+                android:text="@string/home_restrict_hint" />
 
             <Button
                 android:id="@+id/appInfoBtn"
                 style="@style/PillButtonSoft"
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"
-                android:text="開啟 App 資訊頁" />
-        </LinearLayout>
-
-        <!-- 總開關 -->
-        <LinearLayout
-            android:id="@+id/masterRow"
-            style="@style/CardBox"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_card_click"
-            android:gravity="center_vertical"
-            android:minHeight="72dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextCardTitle"
-                    android:text="啟用提醒" />
-
-                <TextView
-                    style="@style/TextHint"
-                    android:text="關掉就全部暫停，群組和設定都會保留。" />
-            </LinearLayout>
-
-            <Switch
-                android:id="@+id/masterSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:minHeight="48dp" />
+                android:text="@string/home_app_info_btn" />
         </LinearLayout>
 
         <!-- 今天 -->
         <TextView
             style="@style/TextCaption"
-            android:text="今天" />
+            android:text="@string/home_today" />
 
         <LinearLayout
             style="@style/CardBox"
@@ -126,11 +93,13 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/todayTotalLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:text="次喘口氣"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -157,11 +126,13 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/todayResistedLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:text="次決定不開了"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -170,7 +141,7 @@
         <!-- 群組摘要 -->
         <TextView
             style="@style/TextCaption"
-            android:text="提醒中的 App" />
+            android:text="@string/home_watching" />
 
         <LinearLayout
             android:id="@+id/summaryCard"
@@ -193,7 +164,7 @@
                 <TextView
                     android:id="@+id/summaryHint"
                     style="@style/TextHint"
-                    android:text="點這裡管理群組與 App" />
+                    android:text="@string/home_summary_hint" />
             </LinearLayout>
 
             <TextView
@@ -213,18 +184,18 @@
 
             <TextView
                 style="@style/TextCardTitle"
-                android:text="還沒有選任何 App" />
+                android:text="@string/home_empty_title" />
 
             <TextView
                 style="@style/TextHint"
-                android:text="先建一個群組，例如「社群」，把 Instagram、Threads 放進去。之後打開它們前，就會先喘口氣。" />
+                android:text="@string/home_empty_body" />
 
             <Button
                 android:id="@+id/emptyCreateBtn"
                 style="@style/PillButton"
                 android:layout_width="match_parent"
                 android:layout_marginTop="14dp"
-                android:text="＋ 建立第一個群組" />
+                android:text="@string/create_first_group" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -144,6 +144,21 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <!-- 分段切換（bg_segment 裡的一格；選中時程式換成 bg_segment_on，見 UiKit.styleSegment） -->
+    <style name="SegmentItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
     <!-- 輸入框 -->
     <style name="InputBox">
         <item name="android:layout_width">match_parent</item>

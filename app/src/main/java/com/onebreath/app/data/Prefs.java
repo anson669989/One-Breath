@@ -19,6 +19,7 @@ public final class Prefs {
     private static final String KEY_COUNT_DAY = "count_day";
     private static final String KEY_TODAY_TOTAL = "today_total";
     private static final String KEY_TODAY_RESISTED = "today_resisted";
+    private static final String KEY_LANGUAGE = "language";
     private static final String PREFIX_GRACE = "grace_until_";
     private static final String PREFIX_COUNT = "cnt_";
 
@@ -49,6 +50,21 @@ public final class Prefs {
 
     public void setEnabled(boolean on) {
         sp.edit().putBoolean(KEY_ENABLED, on).apply();
+    }
+
+    // ---- 介面語言 ----
+
+    /** AppLocale.SYSTEM（預設）、AppLocale.ZH 或 AppLocale.EN；不認得的值一律當作跟隨系統。 */
+    public String getLanguage() {
+        String v = sp.getString(KEY_LANGUAGE, AppLocale.SYSTEM);
+        if (AppLocale.ZH.equals(v) || AppLocale.EN.equals(v)) return v;
+        return AppLocale.SYSTEM;
+    }
+
+    public void setLanguage(String lang) {
+        if (!AppLocale.ZH.equals(lang) && !AppLocale.EN.equals(lang)) lang = AppLocale.SYSTEM;
+        // commit：接著馬上 recreate()，新的 Activity 一建立就要讀到新值
+        sp.edit().putString(KEY_LANGUAGE, lang).commit();
     }
 
     // ---- 時間設定 ----
