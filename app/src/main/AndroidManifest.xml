@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- 沒有網路權限：所有資料都只存在這支手機上 -->
+
     <!-- 讓 App 能列出手機上可開啟的 App（Android 11 以上需要） -->
     <queries>
         <intent>
@@ -17,18 +19,26 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:exported="true">
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- 打開被監控的 App 時跳出的「喘口氣」畫面 -->
+        <!-- 編輯群組：選 App、功能與時間 -->
         <activity
-            android:name=".PauseActivity"
+            android:name=".ui.GroupEditActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!-- 打開被提醒的 App / 網站時跳出的「喘口氣」畫面 -->
+        <activity
+            android:name=".ui.PauseActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:launchMode="singleTask"
@@ -36,7 +46,7 @@
             android:theme="@style/PauseTheme" />
 
         <service
-            android:name=".PauseService"
+            android:name=".service.PauseService"
             android:exported="false"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">

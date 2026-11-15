@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">喘口氣</string>
-    <string name="service_description">偵測你打開了哪個 App，若是你選定的分心 App，就先跳出深呼吸畫面。只讀取 App 名稱，不讀取畫面內容，也不會上傳任何資料。</string>
+    <string name="service_description">偵測現在最前面的是哪個 App；若是你選定的分心 App，就先跳出深呼吸畫面，使用一段時間後也會再提醒你一次。在瀏覽器裡，只會讀取網址列上的網址，用來認出你選定的網站。畫面上的其他內容一概不讀，所有資料都只存在這支手機上，不會上傳任何東西。</string>
 </resources>

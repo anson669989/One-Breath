@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 由上而下的深夜藍漸層，畫面上方三分之一處再疊一層很淡的藍色光暈 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/pause_bg_mid"
+                android:endColor="@color/pause_bg_bottom"
+                android:startColor="@color/pause_bg_top"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerX="0.5"
+                android:centerY="0.36"
+                android:endColor="#00000000"
+                android:gradientRadius="360dp"
+                android:startColor="@color/pause_bg_glow"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

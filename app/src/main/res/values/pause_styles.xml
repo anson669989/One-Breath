@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 喘口氣畫面專用色票：深夜藍底 + 藍色呼吸光（開啟前）/ 暖琥珀光（使用中提醒） -->
+    <color name="pause_bg_top">#0C1630</color>
+    <color name="pause_bg_mid">#081022</color>
+    <color name="pause_bg_bottom">#04070F</color>
+    <color name="pause_bg_glow">#223D7BFF</color>
+
+    <color name="pause_text_primary">#EEF2FA</color>
+    <color name="pause_text_secondary">#8C9AB5</color>
+    <color name="pause_text_tertiary">#66749A</color>
+
+    <color name="pause_accent">#3D7BFF</color>
+    <color name="pause_accent_light">#8FB0FF</color>
+    <color name="pause_on_accent">#FFFFFF</color>
+
+    <color name="pause_warm">#E9A97A</color>
+    <color name="pause_warm_light">#FFD8B4</color>
+    <color name="pause_on_warm">#1E1408</color>
+
+    <color name="pause_chip_fill">#14FFFFFF</color>
+    <color name="pause_chip_line">#24FFFFFF</color>
+    <color name="pause_ripple_light">#33FFFFFF</color>
+    <color name="pause_ripple_dark">#2E000000</color>
+
+    <style name="PauseTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@drawable/pause_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/pause_bg_bottom</item>
+        <item name="android:colorAccent">@color/pause_accent</item>
+        <item name="android:colorPrimary">@color/pause_accent</item>
+        <item name="android:colorPrimaryDark">@color/pause_bg_top</item>
+        <item name="android:textColorPrimary">@color/pause_text_primary</item>
+        <item name="android:textColorSecondary">@color/pause_text_secondary</item>
+        <item name="android:colorControlHighlight">@color/pause_ripple_light</item>
+    </style>
+</resources>

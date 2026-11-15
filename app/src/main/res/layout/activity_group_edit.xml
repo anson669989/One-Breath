@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 編輯一個群組：上方「設定｜App」兩段切換。App 段落用 ListView 自己捲動，不放在 ScrollView 裡。 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:orientation="vertical">
+
+    <!-- 頂列：返回、標題、儲存 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="56dp"
+        android:orientation="horizontal"
+        android:paddingLeft="4dp"
+        android:paddingRight="16dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="返回"
+            android:src="@drawable/ic_back"
+            android:tint="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/editTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/text_primary"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/PillButton"
+            android:layout_marginLeft="8dp"
+            android:text="儲存" />
+    </LinearLayout>
+
+    <!-- 分段切換 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_segment"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tabSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:minHeight="44dp"
+            android:singleLine="true"
+            android:text="設定"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tabApps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:minHeight="44dp"
+            android:singleLine="true"
+            android:text="App"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- ===== 設定段 ===== -->
+        <ScrollView
+            android:id="@+id/paneSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="32dp">
+
+                <TextView
+                    style="@style/TextCaption"
+                    android:layout_marginTop="8dp"
+                    android:text="名稱" />
+
+                <EditText
+                    android:id="@+id/editName"
+                    style="@style/InputBox"
+                    android:hint="例如：社群"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="30" />
+
+                <!-- 功能 -->
+                <TextView
+                    style="@style/TextCaption"
+                    android:text="功能" />
+
+                <LinearLayout style="@style/CardBox">
+
+                    <LinearLayout
+                        android:id="@+id/rowPause"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="48dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextCardTitle"
+                                android:text="開啟前喘口氣" />
+
+                            <TextView
+                                style="@style/TextHint"
+                                android:text="打開這些 App 前，先跳出深呼吸畫面。" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchPause"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:minHeight="48dp" />
+                    </LinearLayout>
+
+                    <View style="@style/Hairline" />
+
+                    <LinearLayout
+                        android:id="@+id/rowRemind"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="48dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextCardTitle"
+                                android:text="使用中提醒" />
+
+                            <TextView
+                                style="@style/TextHint"
+                                android:text="用了一段時間後，再跳出來問你要不要繼續。" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchRemind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:minHeight="48dp" />
+                    </LinearLayout>
+
+                    <View style="@style/Hairline" />
+
+                    <LinearLayout
+                        android:id="@+id/rowWeb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="48dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextCardTitle"
+                                android:text="連同對應網站一起提醒" />
+
+                            <TextView
+                                style="@style/TextHint"
+                                android:text="例如選了 X，用瀏覽器開 x.com 也會提醒。" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchWeb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:minHeight="48dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 時間 -->
+                <TextView
+                    style="@style/TextCaption"
+                    android:text="時間" />
+
+                <LinearLayout style="@style/CardBox">
+
+                    <LinearLayout
+                        android:id="@+id/rowCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="48dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextCardTitle"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="這個群組使用自己的時間設定" />
+
+                        <Switch
+                            android:id="@+id/switchCustom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:minHeight="48dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/timingOff"
+                        style="@style/TextHint"
+                        android:text="使用「設定」頁的全域時間"
+                        android:textColor="@color/text_muted" />
+
+                    <LinearLayout
+                        android:id="@+id/timingBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View style="@style/Hairline" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/TextBody"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="開啟前等待秒數" />
+
+                            <TextView
+                                android:id="@+id/labelGDelay"
+                                style="@style/TextValue" />
+                        </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/seekGDelay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/TextBody"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="每使用幾分鐘提醒一次" />
+
+                            <TextView
+                                android:id="@+id/labelGRemind"
+                                style="@style/TextValue" />
+                        </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/seekGRemind"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/TextBody"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="提醒畫面的等待秒數" />
+
+                            <TextView
+                                android:id="@+id/labelGRemindDelay"
+                                style="@style/TextValue" />
+                        </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/seekGRemindDelay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 自訂網站 -->
+                <TextView
+                    style="@style/TextCaption"
+                    android:text="自訂網站" />
+
+                <LinearLayout style="@style/CardBox">
+
+                    <TextView
+                        style="@style/TextHint"
+                        android:layout_marginTop="0dp"
+                        android:text="給沒有 App 的網站用，例如 news.example.com。已選 App 對應的網站會自動算進來，不用另外加。" />
+
+                    <LinearLayout
+                        android:id="@+id/siteList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical" />
+
+                    <TextView
+                        android:id="@+id/siteEmpty"
+                        style="@style/TextHint"
+                        android:text="還沒有自訂網站"
+                        android:textColor="@color/text_muted" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/siteInput"
+                            style="@style/InputBox"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:hint="網址，例如 news.example.com"
+                            android:imeOptions="actionDone"
+                            android:inputType="textUri" />
+
+                        <Button
+                            android:id="@+id/siteAdd"
+                            style="@style/PillButtonSoft"
+                            android:layout_marginLeft="8dp"
+                            android:text="加入" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/siteError"
+                        style="@style/TextHint"
+                        android:textColor="@color/warn_text"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    style="@style/FlatButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="24dp"
+                    android:text="刪除群組"
+                    android:textColor="@color/warn_text"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- ===== App 段 ===== -->
+        <LinearLayout
+            android:id="@+id/paneApps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/searchBox"
+                style="@style/InputBox"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:drawablePadding="6dp"
+                android:hint="搜尋 App"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingLeft="8dp" />
+
+            <TextView
+                android:id="@+id/appCount"
+                style="@style/TextHint"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ListView
+                    android:id="@+id/appList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:divider="@color/card_line"
+                    android:dividerHeight="1px"
+                    android:fastScrollEnabled="true"
+                    android:listSelector="@android:color/transparent" />
+
+                <TextView
+                    android:id="@+id/appEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="24dp"
+                    android:text="載入 App 中…"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

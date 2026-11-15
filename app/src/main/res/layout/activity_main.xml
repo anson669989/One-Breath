@@ -1,153 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- 主畫面：上方換頁內容，下方三格導覽列（首頁／群組／設定） -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@color/bg_main"
+    android:orientation="vertical">
 
-    <!-- focusableInTouchMode：避免一進來搜尋框就自動跳出鍵盤 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include
+            android:id="@+id/pageHome"
+            layout="@layout/page_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/pageGroups"
+            layout="@layout/page_groups"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/pageSettings"
+            layout="@layout/page_settings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/card_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingBottom="24dp">
+        android:background="@color/nav_bg"
+        android:minHeight="64dp"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:minHeight="64dp"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingTop="28dp"
-            android:paddingRight="20dp">
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <ImageView
+                android:id="@+id/navHomeIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_nav_home" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="喘口氣"
-                android:textColor="#E8EEF8"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <TextView
+                android:id="@+id/navHomeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="打開分心 App 前先深呼吸幾秒，想開還是開得了。"
-                android:textColor="#8C9AB5"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/statusText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="14dp"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/accessBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="#3D7BFF"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/samsungHint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="開關是灰色按不了？先按下面按鈕 → 右上角 ⋮ →「允許受限制的設定」，再回來按 ①。"
-                android:textColor="#8C9AB5"
-                android:textSize="13sp" />
-
-            <Button
-                android:id="@+id/appInfoBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#1E3A70"
-                android:text="開啟 App 資訊頁"
-                android:textColor="#E8EEF8" />
-
-            <Switch
-                android:id="@+id/enableSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="啟用提醒"
-                android:textColor="#E8EEF8"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/delayLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="#E8EEF8"
-                android:textSize="15sp" />
-
-            <SeekBar
-                android:id="@+id/delaySeek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="30" />
-
-            <TextView
-                android:id="@+id/graceLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="#E8EEF8"
-                android:textSize="15sp" />
-
-            <SeekBar
-                android:id="@+id/graceSeek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="29" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="② 勾選要提醒的 App"
-                android:textColor="#E8EEF8"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/searchBox"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/search_box"
-                android:drawableLeft="@android:drawable/ic_menu_search"
-                android:drawablePadding="6dp"
-                android:hint="搜尋 App"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:paddingRight="12dp"
                 android:singleLine="true"
-                android:textColor="#E8EEF8"
-                android:textColorHint="#5D6B88"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/emptyText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="載入 App 中…"
-                android:textColor="#8C9AB5"
-                android:textSize="14sp" />
+                android:text="首頁"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/appList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:id="@+id/navGroups"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:minHeight="64dp"
+            android:orientation="vertical"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <ImageView
+                android:id="@+id/navGroupsIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_nav_groups" />
+
+            <TextView
+                android:id="@+id/navGroupsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:singleLine="true"
+                android:text="群組"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:minHeight="64dp"
+            android:orientation="vertical"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <ImageView
+                android:id="@+id/navSettingsIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_nav_settings" />
+
+            <TextView
+                android:id="@+id/navSettingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:singleLine="true"
+                android:text="設定"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

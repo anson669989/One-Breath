@@ -1,33 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 群組編輯頁 App 清單的一列（ListView 用，點整列勾選） -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
+    android:minHeight="64dp"
     android:orientation="horizontal"
     android:paddingLeft="20dp"
-    android:paddingRight="12dp">
+    android:paddingTop="8dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="8dp">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/appIcon"
         android:layout_width="40dp"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:importantForAccessibility="no" />
 
-    <TextView
-        android:id="@+id/label"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
         android:layout_weight="1"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="#E8EEF8"
-        android:textSize="16sp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/appLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/appSub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/text_muted"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/appTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_tag"
+            android:ellipsize="end"
+            android:paddingLeft="8dp"
+            android:paddingTop="2dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="2dp"
+            android:singleLine="true"
+            android:textColor="@color/tag_text"
+            android:textSize="11sp"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <CheckBox
-        android:id="@+id/check"
+        android:id="@+id/appCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:clickable="false"
-        android:focusable="false" />
+        android:focusable="false"
+        android:importantForAccessibility="no" />
 </LinearLayout>

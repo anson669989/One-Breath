@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 設定頁：全域時間設定、關於與隱私 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingTop="28dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            style="@style/TextPageTitle"
+            android:text="設定" />
+
+        <TextView
+            style="@style/TextHint"
+            android:text="群組沒有設定自己的時間時，就會用這裡的設定。"
+            android:textSize="14sp" />
+
+        <!-- 開啟前 -->
+        <TextView
+            style="@style/TextCaption"
+            android:text="開啟前喘口氣" />
+
+        <LinearLayout style="@style/CardBox">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextCardTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="開啟前等待秒數" />
+
+                <TextView
+                    android:id="@+id/labelDelay"
+                    style="@style/TextValue" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seekDelay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:minHeight="48dp" />
+
+            <TextView
+                style="@style/TextHint"
+                android:text="深呼吸畫面要等幾秒，才能選「繼續」。0 = 不用等。" />
+
+            <View style="@style/Hairline" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextCardTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="「繼續」後幾分鐘內不再提醒" />
+
+                <TextView
+                    android:id="@+id/labelGrace"
+                    style="@style/TextValue" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seekGrace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:minHeight="48dp" />
+
+            <TextView
+                style="@style/TextHint"
+                android:text="選了繼續之後，這段時間內再打開同一個 App 不會被打斷。" />
+        </LinearLayout>
+
+        <!-- 使用中提醒 -->
+        <TextView
+            style="@style/TextCaption"
+            android:text="使用中提醒" />
+
+        <LinearLayout style="@style/CardBox">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextCardTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="每使用幾分鐘提醒一次" />
+
+                <TextView
+                    android:id="@+id/labelRemind"
+                    style="@style/TextValue" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seekRemind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:minHeight="48dp" />
+
+            <TextView
+                style="@style/TextHint"
+                android:text="一直停在同一個 App 時，每隔這麼久跳出來問你還要不要繼續。" />
+
+            <View style="@style/Hairline" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextCardTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="提醒畫面的等待秒數" />
+
+                <TextView
+                    android:id="@+id/labelRemindDelay"
+                    style="@style/TextValue" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seekRemindDelay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:minHeight="48dp" />
+
+            <TextView
+                style="@style/TextHint"
+                android:text="使用中提醒的畫面要等幾秒，才能選「繼續」。0 = 不用等。" />
+        </LinearLayout>
+
+        <!-- 關於／隱私 -->
+        <TextView
+            style="@style/TextCaption"
+            android:text="關於與隱私" />
+
+        <LinearLayout style="@style/CardBox">
+
+            <TextView
+                style="@style/TextBody"
+                android:text="沒有網路權限、沒有廣告，所有設定和次數都只存在這支手機上，不會傳出去。" />
+
+            <TextView
+                style="@style/TextHint"
+                android:layout_marginTop="10dp"
+                android:text="無障礙權限只用來知道「現在前景是哪個 App」。為了認出你選的網站，在瀏覽器裡只會讀取網址列的網址，畫面上的其他內容一律不讀。" />
+
+            <View style="@style/Hairline" />
+
+            <TextView
+                style="@style/TextCardTitle"
+                android:text="三星手機小提醒" />
+
+            <TextView
+                style="@style/TextHint"
+                android:text="設定 → 電池 → 喘口氣 → 設為「不受限制」，避免被省電機制關掉，提醒才不會突然失靈。" />
+
+            <View style="@style/Hairline" />
+
+            <TextView
+                android:id="@+id/versionText"
+                style="@style/TextHint"
+                android:layout_marginTop="0dp"
+                android:textColor="@color/text_muted" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

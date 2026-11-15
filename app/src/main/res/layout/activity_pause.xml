@@ -1,68 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+  喘口氣畫面。背景漸層來自 PauseTheme 的 windowBackground，會一路延伸到狀態列後面；
+  fitsSystemWindows 讓內容避開狀態列 / 瀏海。外層 ScrollView + fillViewport：
+  一般螢幕上用權重把內容撐滿置中；小螢幕或字體放大時改成可以捲動，按鈕永遠不會被擠出畫面。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pauseScroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="28dp">
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
-    <ImageView
-        android:id="@+id/appIcon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp" />
-
-    <TextView
-        android:id="@+id/countText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:textColor="#8C9AB5"
-        android:textSize="15sp" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="28dp"
+        android:paddingTop="20dp"
+        android:paddingRight="28dp"
+        android:paddingBottom="20dp">
 
-    <!-- 只剩會縮放的圓圈，不顯示文字 -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        <!-- 頂端小標：圓形晶片裡的圖示 + 名稱 -->
+        <LinearLayout
+            android:id="@+id/pauseCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <View
-            android:id="@+id/circle"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:layout_gravity="center"
-            android:background="@drawable/breath_circle" />
-    </FrameLayout>
+            <FrameLayout
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:background="@drawable/pause_chip">
 
-    <TextView
-        android:id="@+id/promptText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:textColor="#E8EEF8"
-        android:textSize="20sp" />
+                <ImageView
+                    android:id="@+id/pauseIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitCenter" />
+            </FrameLayout>
 
-    <Button
-        android:id="@+id/cancelBtn"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:backgroundTint="#3D7BFF"
-        android:text="算了，不開了"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/pauseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:maxWidth="240dp"
+                android:textColor="@color/pause_text_secondary"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-    <!-- 純文字，沒有方框，直接放在背景上 -->
-    <Button
-        android:id="@+id/continueBtn"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:stateListAnimator="@null"
-        android:textColor="#6F7FA0"
-        android:textSize="14sp"
-        android:visibility="invisible" />
-</LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="16dp" />
+
+        <!-- 呼吸光球（自繪，不顯示倒數） -->
+        <com.onebreath.app.ui.PauseOrbView
+            android:id="@+id/pauseOrb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="16dp" />
+
+        <TextView
+            android:id="@+id/pauseEyebrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:letterSpacing="0.12"
+            android:textColor="@color/pause_accent_light"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/pauseQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.25"
+            android:textColor="@color/pause_text_primary"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/pauseStat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.15"
+            android:textColor="@color/pause_text_tertiary"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:minHeight="28dp" />
+
+        <!-- 健康的選擇：醒目的膠囊按鈕 -->
+        <Button
+            android:id="@+id/pausePrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pause_pill"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.04"
+            android:minHeight="56dp"
+            android:paddingLeft="24dp"
+            android:paddingTop="14dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="14dp"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:textColor="@color/pause_on_accent"
+            android:textSize="17sp" />
+
+        <!-- 「還是要繼續」：低調的文字按鈕，等待結束才淡入；之前完全不可點 -->
+        <TextView
+            android:id="@+id/pauseSecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/pause_text_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="12dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/pause_text_secondary"
+            android:textSize="14sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+</ScrollView>

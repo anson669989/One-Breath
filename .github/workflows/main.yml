@@ -19,14 +19,30 @@ jobs:
         with:
           gradle-version: 8.11.1
 
-      - name: Build debug APK
+      # 簽章金鑰存在 repo 的 Secrets 裡（Settings → Secrets and variables → Actions）
+      - name: Restore signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PASSWORD" ]; then
+            echo "::error::找不到簽章金鑰。請到 Settings → Secrets and variables → Actions 新增 KEYSTORE_BASE64 和 KEYSTORE_PASSWORD，再重新執行。"
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          echo "KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+
+      - name: Build signed release APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
           DIR=$(dirname "$(find . -name settings.gradle -not -path './.git/*' | head -n 1)")
           echo "專案位置：$DIR"
           cd "$DIR"
-          gradle assembleDebug
+          gradle assembleRelease
 
       - uses: actions/upload-artifact@v4
         with:
           name: OneBreath-apk
-          path: '**/build/outputs/apk/debug/*.apk'
+          path: '**/build/outputs/apk/release/*.apk'
+          if-no-files-found: error

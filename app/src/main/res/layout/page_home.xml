@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 首頁：權限狀態、總開關、今天的次數、群組摘要 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingTop="28dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            style="@style/TextPageTitle"
+            android:text="喘口氣" />
+
+        <TextView
+            style="@style/TextHint"
+            android:text="打開分心 App 前先深呼吸幾秒，想開還是開得了。"
+            android:textSize="14sp" />
+
+        <!-- 權限狀態 -->
+        <LinearLayout
+            android:id="@+id/statusCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_status_off"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/statusTitle"
+                style="@style/TextCardTitle"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/statusBody"
+                style="@style/TextHint"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/accessBtn"
+                style="@style/PillButton"
+                android:layout_width="match_parent"
+                android:layout_marginTop="14dp"
+                android:text="① 開啟無障礙權限（找「喘口氣」）" />
+
+            <TextView
+                android:id="@+id/restrictHint"
+                style="@style/TextHint"
+                android:layout_marginTop="12dp"
+                android:text="開關是灰色按不了？（Android 13 以上、三星手機常見）先按下面按鈕 → 右上角 ⋮ →「允許受限制的設定」，再回來按 ①。" />
+
+            <Button
+                android:id="@+id/appInfoBtn"
+                style="@style/PillButtonSoft"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:text="開啟 App 資訊頁" />
+        </LinearLayout>
+
+        <!-- 總開關 -->
+        <LinearLayout
+            android:id="@+id/masterRow"
+            style="@style/CardBox"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_click"
+            android:gravity="center_vertical"
+            android:minHeight="72dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextCardTitle"
+                    android:text="啟用提醒" />
+
+                <TextView
+                    style="@style/TextHint"
+                    android:text="關掉就全部暫停，群組和設定都會保留。" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/masterSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:minHeight="48dp" />
+        </LinearLayout>
+
+        <!-- 今天 -->
+        <TextView
+            style="@style/TextCaption"
+            android:text="今天" />
+
+        <LinearLayout
+            style="@style/CardBox"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/todayTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/text_primary"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="次喘口氣"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/card_line" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/todayResisted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/chip_text"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="次決定不開了"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 群組摘要 -->
+        <TextView
+            style="@style/TextCaption"
+            android:text="提醒中的 App" />
+
+        <LinearLayout
+            android:id="@+id/summaryCard"
+            style="@style/CardBox"
+            android:background="@drawable/bg_card_click"
+            android:gravity="center_vertical"
+            android:minHeight="64dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/summaryText"
+                    style="@style/TextCardTitle" />
+
+                <TextView
+                    android:id="@+id/summaryHint"
+                    style="@style/TextHint"
+                    android:text="點這裡管理群組與 App" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:importantForAccessibility="no"
+                android:text="›"
+                android:textColor="@color/text_secondary"
+                android:textSize="26sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emptyCard"
+            style="@style/CardBox"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/TextCardTitle"
+                android:text="還沒有選任何 App" />
+
+            <TextView
+                style="@style/TextHint"
+                android:text="先建一個群組，例如「社群」，把 Instagram、Threads 放進去。之後打開它們前，就會先喘口氣。" />
+
+            <Button
+                android:id="@+id/emptyCreateBtn"
+                style="@style/PillButton"
+                android:layout_width="match_parent"
+                android:layout_marginTop="14dp"
+                android:text="＋ 建立第一個群組" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

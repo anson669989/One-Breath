@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 群組編輯頁「自訂網站」的一列 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/siteName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@color/text_primary"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/siteRemove"
+        style="@style/FlatButton"
+        android:layout_marginLeft="8dp"
+        android:text="移除"
+        android:textColor="@color/warn_text" />
+</LinearLayout>
