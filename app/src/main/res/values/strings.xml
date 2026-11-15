@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  English (default / fallback). Traditional Chinese lives in values-zh/strings.xml.
+  English (default / fallback). Traditional Chinese lives in values-zh-rTW/strings.xml.
   Both files must have exactly the same keys. Typographic quotes (“ ” ’) are used on purpose,
   so no Android escaping is needed for apostrophes or double quotes.
 -->

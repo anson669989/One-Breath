@@ -73,4 +73,4 @@ Upgrading from an older version: the apps you had ticked are automatically moved
 
 `app/src/main/res/`
 - `values/strings.xml`: English interface text (the default, used for any non-Chinese language)
-- `values-zh/strings.xml`: Traditional Chinese interface text
+- `values-zh-rTW/strings.xml`: Traditional Chinese interface text

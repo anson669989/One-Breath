@@ -73,4 +73,4 @@ repo 頁面 → Settings → Secrets and variables → Actions → New repositor
 
 `app/src/main/res/`
 - `values/strings.xml`：英文介面文字（預設，非中文語系時使用）
-- `values-zh/strings.xml`：繁體中文介面文字
+- `values-zh-rTW/strings.xml`：繁體中文介面文字
